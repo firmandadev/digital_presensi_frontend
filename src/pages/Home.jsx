@@ -1,8 +1,7 @@
-
 import './Home.css';
 import SignatureCanvas from 'react-signature-canvas'
 import React, { useRef } from 'react'
-
+const settings = require('../settings.json')
 class Home extends React.Component {
   constructor(props){
     super(props)
@@ -48,7 +47,7 @@ async getDatas(){
      <div class="card" id='card-home'>
         <div class="card-body">
             {this.state.kegiatan.map(data=>{
-                let link = './presensi/' + data.id_kegiatan
+                let link = settings.baseURI + '/#/presensi/' + data.id_kegiatan
                 return(
                     <div key={data.id_kegiatan}>
                     <a href={link} key={data.id_kegiatan}>{data.nama_kegiatan}</a><br></br>
