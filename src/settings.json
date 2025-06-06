@@ -1,5 +1,5 @@
 {
     "serverURI" : "http://localhost",
     "serverPort":3000,
-    "baseURI" :"digital_presensi_frontend"
+    "baseURI" :"/digital_presensi_frontend/#"
 }
