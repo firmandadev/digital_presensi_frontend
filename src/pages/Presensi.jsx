@@ -10,7 +10,7 @@ function Presensi() {
   let idKegiatan = window.location.href.split('/').slice(-1)[0]
   const [content, setContent] = useState(null)
   useEffect(()=>{
-    fetch("http://localhost:7000/api/getKegiatan/"+idKegiatan)
+    fetch(settings.serverURI + "/api/getKegiatan/"+idKegiatan)
     .then(res=>res.json()).then(res=>{setContent(res); document.getElementById('judul-presensi').innerHTML = res.nama_kegiatan
     }).catch(err=>console.log(err));
   },[])
@@ -27,7 +27,7 @@ function Presensi() {
       upload_time: new Date().toLocaleString(),
       id_acara : window.location.href.split('/').slice(-1)[0]
     }
-    const response = await fetch("http://localhost:7000/api/postData",{
+    const response = await fetch(settings.serverURI + "/api/postData",{
       method:"POST",
       headers:{'content-type':'application/json'},
       body: JSON.stringify(sentDatas)

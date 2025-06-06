@@ -1,5 +1,5 @@
 {
-    "serverURI" : "http://localhost",
+    "serverURI" : "https://digital-presensi-backend.vercel.app",
     "serverPort":3000,
     "baseURI" :"/digital_presensi_frontend/#"
 }

@@ -2,6 +2,7 @@
 import './Laporan.css';
 import SignatureCanvas from 'react-signature-canvas'
 import React, { useRef } from 'react'
+const settings = require('../settings.json')
 
 class Laporan extends React.Component {
   constructor(props){
@@ -19,7 +20,7 @@ class Laporan extends React.Component {
     this.getDatas()
   }
   async getDatas(){
-    let datas = await fetch("http://localhost:7000/api/getAllDatas",{
+    let datas = await fetch(settings.serverURI + "/api/getAllDatas",{
       method:"GET"
     })
     let json_datas = await datas.json()

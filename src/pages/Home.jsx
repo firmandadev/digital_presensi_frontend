@@ -23,7 +23,7 @@ async uploadKegiatanBaru(self){
     waktu_awal : '00',
     tanggal_kegiatan : document.getElementById('Form_Tanggal').value
   }
-  const response = await fetch("http://localhost:7000/api/postKegiatan",{
+  const response = await fetch(settings.serverURI + "/api/postKegiatan",{
       method:"POST",
       headers:{'content-type':'application/json'},
       body: JSON.stringify(datas)
@@ -35,7 +35,7 @@ getRandomID(){
   return alphabet[Math.floor(Math.random() * alphabet.length)] + Math.floor(Math.random()*10000)
 }
 async getDatas(){
-    let datas = await fetch("http://localhost:7000/api/getAllKegiatan",{
+	let datas = await fetch(settings.serverURI + "/api/getAllKegiatan",{
       method:"GET"
     })
     let json_datas = await datas.json()
@@ -47,7 +47,7 @@ async getDatas(){
      <div class="card" id='card-home'>
         <div class="card-body">
             {this.state.kegiatan.map(data=>{
-                let link = settings.baseURI + '/presensi/' + data.id_kegiatan
+                let link = '/presensi/' + data.id_kegiatan
                 return(
                     <div key={data.id_kegiatan}>
                     <a href={link} key={data.id_kegiatan}>{data.nama_kegiatan}</a><br></br>
