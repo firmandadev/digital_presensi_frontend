@@ -48,7 +48,7 @@ async getDatas(){
      <div class="card" id='card-home'>
         <div class="card-body">
             {this.state.kegiatan.map(data=>{
-                let link = '/presensi/' + data.id_kegiatan
+                let link = './presensi/' + data.id_kegiatan
                 return(
                     <div key={data.id_kegiatan}>
                     <a href={link} key={data.id_kegiatan}>{data.nama_kegiatan}</a><br></br>
