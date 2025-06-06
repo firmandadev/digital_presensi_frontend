@@ -6,20 +6,20 @@ import Error from './pages/Error';
 
 import Presensi from './pages/Presensi';
 import Home from './pages/Home';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
     <Routes>
       <Route  path="/presensi/*" element={<Presensi />}/>
        <Route path="/laporan" element={<Laporan />}/>
        <Route path="/" element={<Home />}/>
        <Route path="*" element={<Error />}/>
     </Routes>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );
 

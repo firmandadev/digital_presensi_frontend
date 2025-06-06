@@ -8,7 +8,6 @@ class Error extends React.Component {
     super(props)
     this.state = {
     }
-    this.getDatas()
   }
   render() {
     return(
