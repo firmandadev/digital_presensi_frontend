@@ -1,4 +1,5 @@
 import './Home.css';
+import Popup from '../container/Popup.jsx'
 import SignatureCanvas from 'react-signature-canvas'
 import React, { useRef } from 'react'
 const settings = require('../settings.json')
@@ -11,7 +12,8 @@ class Home extends React.Component {
             nama_kegiatan : undefined,
             waktu_akhir : undefined,
             waktu_awal : undefined
-        }]
+        }],
+	popup_message :"Lorem ipsum dolor si amet"
     }
     this.getDatas()
 }
@@ -28,7 +30,10 @@ async uploadKegiatanBaru(self){
       headers:{'content-type':'application/json'},
       body: JSON.stringify(datas)
     })
-  console.log(await response.json())
+  const json  = await response.json()
+	document.getElementById("popup-container").style.display = "flex"
+	this.setState({popup_message:json.message})
+	
 }
 getRandomID(){
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -43,6 +48,8 @@ async getDatas(){
   }
   render(){
     return(
+	    <div>
+	    <Popup text={this.state.popup_message} />
       <div id='home-container'>
      <div class="card" id='card-home'>
         <div class="card-body">
@@ -69,7 +76,7 @@ async getDatas(){
              <button type="button" class="btn btn-primary" onClick={()=>this.uploadKegiatanBaru(this)}>Buat</button>
         </div>
         </div>
-    </div>)
+    </div></div>)
     }
 }
 

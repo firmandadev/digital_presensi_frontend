@@ -7,3 +7,7 @@
 td{
     height: 30px;
 }
+#popup-box{
+	position:fixed;
+	z-index:2
+}

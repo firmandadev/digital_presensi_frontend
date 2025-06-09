@@ -2,7 +2,6 @@
   border: solid 1px rgb(200, 200, 200);
   text-align: center;
   padding: 20px;
-  margin: 20px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;

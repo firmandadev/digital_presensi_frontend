@@ -1,0 +1,29 @@
+#popup-box{
+         position:fixed;
+          z-index:2;
+	  margin: auto;
+	  display:flex;
+	  justify-content:center;	
+	  text-align:center;
+	  padding:10px
+ }
+ #popup-container{
+	display:none;
+	justify-content:center;
+	background-color:'red';
+	width:100vw;
+	height:100vh;
+	position:fixed;
+	z-index:2;
+	margin:0px;
+	padding:0px;
+	background-color:rgba(0,0,0,0.5);
+	align-items:center
+ }
+ #card-title{
+	border-bottom: solid 1px rgb(200, 200, 200);
+	padding-bottom:10px;
+ }
+ #close-button{
+	margin-top:10px;
+ }

@@ -1,6 +1,7 @@
 import logo from '../logo.svg';
 import './Presensi.css';
 import SignatureCanvas from 'react-signature-canvas'
+import Popup from '../container/Popup.jsx'
 import React, { useRef } from 'react'
 import { useState, useEffect } from 'react';
 const settings = require('../settings.json')
@@ -14,7 +15,25 @@ function Presensi() {
     .then(res=>res.json()).then(res=>{setContent(res); document.getElementById('judul-presensi').innerHTML = res.nama_kegiatan
     }).catch(err=>console.log(err));
   },[])
-  
+ function base64ToBlob(base64, contentType = '', sliceSize = 512) {
+    const byteCharacters = atob(base64.split(',')[1]);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+} 
   function clearSignature(){
     sigCanvas.current.clear()
   }
@@ -32,8 +51,13 @@ function Presensi() {
       headers:{'content-type':'application/json'},
       body: JSON.stringify(sentDatas)
     })
+    let json_data = await response.json()
+    document.getElementById('popup-box-text').innerHTML= json_data.message
+    document.getElementById("popup-container").style.display= "flex"
   }
   return (
+    <div id='presensi-container'>
+    <Popup  />
     <div className="App">
       <div id='judul-presensi'>
         {/* Halo {content.nama_kegiatan} */}
@@ -68,6 +92,7 @@ function Presensi() {
         <button type="button" class="btn btn-primary" id='hapus-ttd' onClick={clearSignature}>Hapus</button>
         <button type="button" class="btn btn-primary" onClick={Kirim}>Kirim</button>
       </div>
+    </div>
     </div>
   );
 }

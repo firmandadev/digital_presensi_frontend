@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Laporan from './pages/Laporan'
 import Error from './pages/Error';
-
+import Navbar from './container/Navbar.jsx';
 import Presensi from './pages/Presensi';
 import Home from './pages/Home';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -11,7 +11,7 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <React.StrictMode>	
     <BrowserRouter>
     <Routes>
       <Route  path="/presensi/*" element={<Presensi />}/>

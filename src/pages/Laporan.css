@@ -7,3 +7,15 @@
 td{
     height: 30px;
 }
+#laporan-card{
+  overflow:scroll;
+}
+#laporan-form{;
+  width:auto;
+}
+#laporan-form-container{
+  display:flex;
+  flex-direction:row;
+  margin-bottom:10px;
+  justify-content:space-between;
+}

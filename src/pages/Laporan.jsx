@@ -15,9 +15,14 @@ class Laporan extends React.Component {
         signature : "undefined",
         upload_time: "undefined",
         id_acara : "undefined"
+      }],
+      kegiatan:[{
+	id_kegiatan:undefined,
+	nama_kegiatan:undefined
       }]
     }
     this.getDatas()
+    this.getKegiatan()
   }
   async getDatas(){
     let datas = await fetch(settings.serverURI + "/api/getAllDatas",{
@@ -26,10 +31,43 @@ class Laporan extends React.Component {
     let json_datas = await datas.json()
     this.setState({datas:json_datas})
   }
+
+  async getDataPresensi(self){
+    let selected = document.getElementById("laporan-form").value
+    let datas = await fetch(settings.serverURI + "/api/getDatas/"+selected,{
+      method:"GET"
+    })
+    let json_datas = await datas.json()
+    self.setState({datas:json_datas})
+  }
+  async getKegiatan(){
+    let datas = await fetch(settings.serverURI + "/api/getAllKegiatan",{
+      method:"GET"
+    })
+    let json_datas = await datas.json()
+    this.setState({kegiatan:json_datas})
+  }
   render() {
     return(
       <div id='table-container'>
-        <div class="card">
+      <div id='laporan-form-container'>
+      <select class="form-select" id="laporan-form" aria-label="Default select example">
+      <option selected>Kegiatan</option>
+      {
+	this.state.kegiatan.map((data,index)=>{
+	  return(
+	    <option value={data.id_kegiatan}>{data.nama_kegiatan}</option>
+	  )
+	})
+
+      }
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+      </select>
+      <button type="button" class="btn btn-dark" onClick={()=>this.getDataPresensi(this)}>Cari</button>
+      </div>
+        <div class="card" id="laporan-card">
   <div class="card-body">
       <table class="table">
       <thead>
@@ -41,6 +79,7 @@ class Laporan extends React.Component {
           <th scope="col">Jabatan</th>
           <th scope="col">Waktu</th>
           <th scope="col">Tanda Tangan</th>
+	  <th></th>
         </tr>
       </thead>
       <tbody itemID='table-content'>
@@ -55,6 +94,7 @@ class Laporan extends React.Component {
                 <td>{data.jabatan}</td>
                 <td>{data.upload_time}</td>
                 <td><img className='laporan-ttd' src={data.signature}></img></td>
+		<td></td>
               </tr>
             )
         })
