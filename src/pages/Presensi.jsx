@@ -85,7 +85,7 @@ function Presensi() {
       <div class="mb-3 input-data">
         <label for="Form_Jabatan" class="form-label">Tanda Tangan</label>
         <div>
-        <SignatureCanvas ref={sigCanvas} penColor='black' id='canvas-ttd' backgroundColor = 'rgba(239, 239, 240,0)'  canvasProps={{width: 300, height: 200, className: 'sigCanvas',style: { border: "1px solid rgb(200, 200, 200)", borderRadius:20, }}} />
+        <SignatureCanvas ref={sigCanvas} penColor='black' id='canvas-ttd' backgroundColor = 'rgba(239, 239, 240,0)'  canvasProps={{width: 300, height: 200, className: 'sigCanvas',style: { border: "1px solid rgb(200, 200, 200)", borderRadius:20, touchAction:"none" }}} />
         </div>
       </div>
       <div class="mb-3">
