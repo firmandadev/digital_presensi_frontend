@@ -1,0 +1,16 @@
+#loading-gif{
+  display:none;
+  position:fixed;
+  z-index:3;
+  height:100vh;
+  width:100vw;
+  background-color: rgba(0,0,0,0.5);
+  text-align:center;
+}
+#loading-object{
+  position:relative;
+  height:150px;
+  margin:auto;
+  top:50%;
+  transform:translate(0,-150px)
+}

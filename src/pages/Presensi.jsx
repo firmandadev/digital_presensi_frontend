@@ -4,7 +4,7 @@ import SignatureCanvas from 'react-signature-canvas'
 import Popup from '../container/Popup.jsx'
 import React, { useRef } from 'react'
 import { useState, useEffect } from 'react';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react'
+import Loading from "../container/Loading.jsx"
 const settings = require('../settings.json')
 
 function Presensi() {
@@ -61,7 +61,7 @@ function Presensi() {
   }
   return (
     <div id='presensi-container'>
-    <div id="loading-gif">                                    ▎ <DotLottieReact src="https://lottie.host/1a198ef4-b98e-4c1e-afe4-3de23de47aa5/LTtu6d9KOL.lottie" loop autoplay /></div>
+    <Loading />
     <Popup  />
     <div className="App">
       <div id='judul-presensi'>

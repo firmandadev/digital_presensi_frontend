@@ -1,5 +1,6 @@
 import './Home.css';
 import Popup from '../container/Popup.jsx'
+import Loading from "../container/Loading.jsx"
 import SignatureCanvas from 'react-signature-canvas'
 import React, { useRef } from 'react'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
@@ -55,12 +56,7 @@ async getDatas(){
   render(){
     return(
 	    <div>
-      <div id="loading-gif">
-      <DotLottieReact 
-      src="https://lottie.host/1a198ef4-b98e-4c1e-afe4-3de23de47aa5/LTtu6d9KOL.lottie"
-      loop
-      autoplay
-    /></div>
+      <Loading />
 	    <Popup text={this.state.popup_message} />
       <div id='home-container'>
      <div class="card" id='card-home'>

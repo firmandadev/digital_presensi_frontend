@@ -11,13 +11,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-#loading-gif{
-  display:none;
-  position:fixed;
-  z-index:3;
-  width:150px;
-  height:150px;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%)
-}
+
