@@ -4,6 +4,7 @@ import SignatureCanvas from 'react-signature-canvas'
 import Popup from '../container/Popup.jsx'
 import React, { useRef } from 'react'
 import { useState, useEffect } from 'react';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 const settings = require('../settings.json')
 
 function Presensi() {
@@ -38,6 +39,7 @@ function Presensi() {
     sigCanvas.current.clear()
   }
   async function Kirim(){
+    document.getElementById("loading-gif").style.display="block"
     let sentDatas = {
       nama : document.getElementById('Form_Nama').value,
       unit_kerja : document.getElementById('Form_UPT').value,
@@ -52,11 +54,14 @@ function Presensi() {
       body: JSON.stringify(sentDatas)
     })
     let json_data = await response.json()
+    document.getElementById("loading-gif").style.display="none"
     document.getElementById('popup-box-text').innerHTML= json_data.message
+
     document.getElementById("popup-container").style.display= "flex"
   }
   return (
     <div id='presensi-container'>
+    <div id="loading-gif">                                    ▎ <DotLottieReact src="https://lottie.host/1a198ef4-b98e-4c1e-afe4-3de23de47aa5/LTtu6d9KOL.lottie" loop autoplay /></div>
     <Popup  />
     <div className="App">
       <div id='judul-presensi'>

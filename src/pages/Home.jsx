@@ -2,6 +2,7 @@ import './Home.css';
 import Popup from '../container/Popup.jsx'
 import SignatureCanvas from 'react-signature-canvas'
 import React, { useRef } from 'react'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 const settings = require('../settings.json')
 class Home extends React.Component {
   constructor(props){
@@ -15,9 +16,13 @@ class Home extends React.Component {
         }],
 	popup_message :"Lorem ipsum dolor si amet"
     }
-    this.getDatas()
+}
+componentDidMount(){
+  this.getDatas()
+  document.getElementById("loading-gif").style.display="block"
 }
 async uploadKegiatanBaru(self){
+  document.getElementById("loading-gif").style.display="block"
   let datas = {
     id_kegiatan : self.getRandomID(),
     nama_kegiatan : document.getElementById('Form_Kegiatan').value,
@@ -31,24 +36,31 @@ async uploadKegiatanBaru(self){
       body: JSON.stringify(datas)
     })
   const json  = await response.json()
-	document.getElementById("popup-container").style.display = "flex"
-	this.setState({popup_message:json.message})
-	
+  document.getElementById("popup-container").style.display = "flex"
+  this.setState({popup_message:json.message})
+  document.getElementById("loading-gif").style.display="none"
 }
 getRandomID(){
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   return alphabet[Math.floor(Math.random() * alphabet.length)] + Math.floor(Math.random()*10000)
 }
 async getDatas(){
-	let datas = await fetch(settings.serverURI + "/api/getAllKegiatan",{
+  let datas = await fetch(settings.serverURI + "/api/getAllKegiatan",{
       method:"GET"
     })
     let json_datas = await datas.json()
     this.setState({kegiatan:json_datas})
+    document.getElementById("loading-gif").style.display="none"
   }
   render(){
     return(
 	    <div>
+      <div id="loading-gif">
+      <DotLottieReact 
+      src="https://lottie.host/1a198ef4-b98e-4c1e-afe4-3de23de47aa5/LTtu6d9KOL.lottie"
+      loop
+      autoplay
+    /></div>
 	    <Popup text={this.state.popup_message} />
       <div id='home-container'>
      <div class="card" id='card-home'>
