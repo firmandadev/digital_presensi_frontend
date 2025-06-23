@@ -39,12 +39,16 @@ class Laporan extends React.Component {
   }
 
   async getDataPresensi(self){
+
+    document.getElementById("loading-gif").style.display="block"
     let selected = document.getElementById("laporan-form").value
     let datas = await fetch(settings.serverURI + "/api/getDatas/"+selected,{
       method:"GET"
     })
     let json_datas = await datas.json()
     self.setState({datas:json_datas})
+
+    document.getElementById("loading-gif").style.display="none"
   }
   async getKegiatan(){
     let datas = await fetch(settings.serverURI + "/api/getAllKegiatan",{
@@ -52,6 +56,7 @@ class Laporan extends React.Component {
     })
     let json_datas = await datas.json()
     this.setState({kegiatan:json_datas})
+
   }
   render() {
     return(
