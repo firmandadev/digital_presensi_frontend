@@ -4,6 +4,7 @@ import SignatureCanvas from 'react-signature-canvas'
 import Popup from '../container/Popup.jsx'
 import React, { useRef } from 'react'
 import { useState, useEffect } from 'react';
+import CryptoJS from 'crypto-js'
 import Loading from "../container/Loading.jsx"
 const settings = require('../settings.json')
 
@@ -57,11 +58,13 @@ function Presensi() {
     document.getElementById("loading-gif").style.display="none"
     document.getElementById('popup-box-text').innerHTML= json_data.message
 
+    const secretKey="memes"
     document.getElementById("popup-container").style.display= "flex"
+    window.location.href = "/presensi/success/" + sentDatas.nama.replaceAll(" ","-")
+
   }
   return (
     <div id='presensi-container'>
-    <Loading />
     <Popup  />
     <div className="App">
       <div id='judul-presensi'>
@@ -84,7 +87,7 @@ function Presensi() {
           <option value="katap">Kepala Seksi Pendataan dan Penetapan</option>
           <option value="kagih">Kepala Seksi Penagihan dan Pembayaran</option>
           <option value="pdpp">PDPP</option>
-          <option value="bnluar">Bendahara Pengeluaran</option>
+          <option value="staff">Staff</option>
         </select>
       </div>
       <div class="mb-3 input-data">

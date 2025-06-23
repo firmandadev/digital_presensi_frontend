@@ -1,4 +1,4 @@
-
+import Loading from '../container/Loading.jsx'
 import './Laporan.css';
 import SignatureCanvas from 'react-signature-canvas'
 import React, { useRef } from 'react'
@@ -21,15 +21,21 @@ class Laporan extends React.Component {
 	nama_kegiatan:undefined
       }]
     }
-    this.getDatas()
-    this.getKegiatan()
   }
+  componentDidMount(){
+    this.getKegiatan()
+    this.getDatas()
+  }
+
   async getDatas(){
+    document.getElementById("loading-gif").style.display="block"
     let datas = await fetch(settings.serverURI + "/api/getAllDatas",{
       method:"GET"
     })
     let json_datas = await datas.json()
     this.setState({datas:json_datas})
+
+    document.getElementById("loading-gif").style.display="none"
   }
 
   async getDataPresensi(self){

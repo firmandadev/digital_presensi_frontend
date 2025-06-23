@@ -56,7 +56,6 @@ async getDatas(){
   render(){
     return(
 	    <div>
-      <Loading />
 	    <Popup text={this.state.popup_message} />
       <div id='home-container'>
      <div class="card" id='card-home'>

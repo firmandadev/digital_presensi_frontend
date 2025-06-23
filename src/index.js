@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Laporan from './pages/Laporan'
 import Error from './pages/Error';
+import Success from './pages/Success.jsx'
+import Loading from './container/Loading.jsx'
 import Navbar from './container/Navbar.jsx';
 import Presensi from './pages/Presensi';
 import Home from './pages/Home';
@@ -11,13 +13,15 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>	
+  <React.StrictMode>
+    <Loading />
     <BrowserRouter>
     <Routes>
       <Route  path="/presensi/*" element={<Presensi />}/>
        <Route path="/laporan" element={<Laporan />}/>
        <Route path="/" element={<Home />}/>
        <Route path="*" element={<Error />}/>
+      <Route path="/presensi/success/*" element={<Success />}/>
     </Routes>
     </BrowserRouter>
   </React.StrictMode>
