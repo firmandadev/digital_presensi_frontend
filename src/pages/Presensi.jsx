@@ -4,7 +4,6 @@ import SignatureCanvas from 'react-signature-canvas'
 import Popup from '../container/Popup.jsx'
 import React, { useRef } from 'react'
 import { useState, useEffect } from 'react';
-import CryptoJS from 'crypto-js'
 import Loading from "../container/Loading.jsx"
 const settings = require('../settings.json')
 

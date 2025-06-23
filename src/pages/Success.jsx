@@ -1,6 +1,5 @@
 import React from "react"
 import "./Success.css"
-import CryptoJS from "crypto-js"
 const settings = require("../settings.json")
 
 class Success extends React.Component{
