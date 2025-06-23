@@ -12,10 +12,14 @@ function Presensi() {
   let idKegiatan = window.location.href.split('/').slice(-1)[0]
   const [content, setContent] = useState(null)
   useEffect(()=>{
+    document.getElementById("loading-gif").style.display="block"
+    document.getElementById("navbar").style.display="none";	
     fetch(settings.serverURI + "/api/getKegiatan/"+idKegiatan)
-    .then(res=>res.json()).then(res=>{setContent(res); document.getElementById('judul-presensi').innerHTML = res.nama_kegiatan
+    .then(res=>res.json()).then(res=>{setContent(res); document.getElementById('judul-presensi').innerHTML = res.nama_kegiatan;
+    document.getElementById("loading-gif").style.display="none";	
     }).catch(err=>console.log(err));
   },[])
+  
  function base64ToBlob(base64, contentType = '', sliceSize = 512) {
     const byteCharacters = atob(base64.split(',')[1]);
     const byteArrays = [];
@@ -65,7 +69,7 @@ function Presensi() {
   return (
     <div id='presensi-container'>
     <Popup  />
-    <div className="App">
+    <div class="card App">
       <div id='judul-presensi'>
         {/* Halo {content.nama_kegiatan} */}
       </div>
@@ -100,6 +104,7 @@ function Presensi() {
         <button type="button" class="btn btn-primary" onClick={Kirim}>Kirim</button>
       </div>
     </div>
+
     </div>
   );
 }

@@ -3,21 +3,22 @@
 }
 #table-container{
     position:static;
-    padding:20px;
 }
 td{
-    height: 30px;
+    height: 10px;
 }
 #laporan-card{
   overflow:scroll;
+  margin:10px;
 }
 #laporan-form{;
-  width:auto;
+  width:200px;
+  margin-right:20px;
 }
 #laporan-form-container{
-  margin-top:0px;
   display:flex;
+  padding:10px;
   flex-direction:row;
   margin-bottom:10px;
-  justify-content:space-between;
+  width:100vw;
 }

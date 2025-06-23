@@ -60,15 +60,29 @@ async getDatas(){
       <div id='home-container'>
      <div class="card" id='card-home'>
         <div class="card-body">
-            {this.state.kegiatan.map(data=>{
+	      <table class="table" id="table-kegiatan">
+		<thead>
+		<tr>
+		  <th scope="col">#</th>
+		  <th scope="col">Nama Kegiatan</th>
+		  <th scope="col">Link</th>
+		</tr>
+	      </thead>
+	      <tbody>
+
+     {this.state.kegiatan.map((data,nume)=>{
                 let link = '/presensi/' + data.id_kegiatan
                 return(
-                    <div key={data.id_kegiatan}>
-                    <a href={link} key={data.id_kegiatan}>{data.nama_kegiatan}</a><br></br>
-                    </div>
+		<tr>
+		  <th scope="row">{nume+1}</th>
+		  <td>{data.nama_kegiatan}</td>
+		  <td><a href={link}>Link</a></td>
+		</tr>
                 )
             })}
-            
+		</tbody>
+	    </table>
+           
         </div>
         </div>
          <div class="card" id='card-home'>

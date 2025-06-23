@@ -15,6 +15,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Loading />
+    <Navbar />
     <BrowserRouter>
     <Routes>
       <Route  path="/presensi/*" element={<Presensi />}/>
