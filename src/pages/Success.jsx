@@ -1,5 +1,6 @@
 import React from "react"
 import "./Success.css"
+import headerImage from "../img/header.jpg"
 const settings = require("../settings.json")
 
 class Success extends React.Component{
@@ -23,9 +24,12 @@ class Success extends React.Component{
 
     return(
       <div id="success-container">
-      Terima Kasih Bapak/Ibu 
+      <img src={headerImage} id="headerImage"></img>
+      <div>
+      <div>Terima Kasih Bapak/Ibu</div>
       <div id="success-nama">{this.state.nama.replaceAll("-"," ")} </div>
-      telah melakukan presensi
+      <div>telah melakukan presensi</div>
+      </div>
       </div>
     )
   }

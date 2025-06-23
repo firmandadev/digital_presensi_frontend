@@ -1,6 +1,11 @@
 #success-container{
   text-align:center;
 }
+#headerImage{
+  width:100vw;
+}
+
 #success-nama{
   font-size:24px;
+  margin-top:20px;
 }

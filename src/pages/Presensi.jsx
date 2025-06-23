@@ -58,7 +58,7 @@ function Presensi() {
     document.getElementById('popup-box-text').innerHTML= json_data.message
 
     const secretKey="memes"
-    document.getElementById("popup-container").style.display= "flex"
+
     window.location.href = "/presensi/success/" + sentDatas.nama.replaceAll(" ","-")
 
   }
