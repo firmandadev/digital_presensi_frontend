@@ -1,13 +1,12 @@
 .App {
   border: solid 1px rgb(200, 200, 200);
   text-align: center;
-  margin:5px;
   margin-top:50px;
   display: flex;
   padding:20px;
   flex-wrap: wrap;
   flex-direction: column;
-  box-shadow:0 4px 8px rgba(0,0,0,1);
+  box-shadow:0 -4px 4px rgba(0,0,0,0.2);
 }
 #canvas-ttd{
   border: solid;
