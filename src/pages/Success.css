@@ -1,5 +1,10 @@
 #success-container{
   text-align:center;
+  background-image: url('../img/images.jpg');
+  width:100vw;
+  height:100vh;
+  background-size:400px auto;
+  padding:20px;
 }
 #headerImage{
   width:100vw;
@@ -7,5 +12,18 @@
 
 #success-nama{
   font-size:24px;
-  margin-top:20px;
+  font-weight:bold;
+}
+#success-card{
+  height:90%;
+  position:relative;
+  padding:20px;
+  display:flex;
+  justify-content:center
+}
+#candaan{
+  position:absolute;
+  bottom:10px;
+  width:300px;
+  word-wrap:break-word;
 }

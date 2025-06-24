@@ -26,7 +26,8 @@ class Pagination extends Component {
     return elements
   }
   componentDidMount(){
-      document.getElementById("pagePrev").style.display = "none"
+    document.getElementById("pagePrev").style.display = "none"
+    let pageNumbers = document.getElementsByClassName("pageNumber")[0].classList.add("active")
   }
   movePage(a){
     if(a==0 || a>this.props.pageNumber){
@@ -34,8 +35,12 @@ class Pagination extends Component {
     }
     if(a==1){
       document.getElementById("pagePrev").style.display = "none"
+      document.getElementById("pageNext").style.display = "block"
     }else if(a==this.props.pageNumber){
-      document.getElementById("pageNext").style.display = "none"}
+      document.getElementById("pageNext").style.display = "none"
+
+      document.getElementById("pagePrev").style.display = "block"
+    }
     else{
       document.getElementById("pageNext").style.display = "block"
       document.getElementById("pagePrev").style.display = "block"
@@ -56,7 +61,7 @@ class Pagination extends Component {
       <nav aria-label="Page navigation example">
 	<ul class="pagination d-flex justify-content-center list-unstyled">
 	
-	  <li class="page-item" id="pagePrev" onClick={(a)=>this.movePage(this.props.parent.state.currentIndex-1)}><a class="page-link" href="#">Previous</a></li>
+	  <li class="page-item" id="pagePrev" onClick={(a)=>this.movePage(this.props.parent.state.currentIndex-1)}><a class="page-link" href="#">&lt;</a></li>
       {
 	this.props.datas.map((data,n)=>{
 	  let amount = Math.ceil(this.props.datas.length/this.props.amount)
@@ -67,7 +72,7 @@ class Pagination extends Component {
 	  }
 	  })
       }
-	  <li class="page-item" id="pageNext" onClick={(a)=>this.movePage(this.props.parent.state.currentIndex+1)}><a class="page-link" href="#">Next</a></li>
+	  <li class="page-item" id="pageNext" onClick={(a)=>this.movePage(this.props.parent.state.currentIndex+1)}><a class="page-link" href="#">&gt;</a></li>
 	</ul>
       </nav>
     );
