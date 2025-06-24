@@ -24,3 +24,18 @@
 #table-kegiatan{
   text-align:left;
 }
+#btnLink{
+  background-color:white;
+  color:black;
+}
+#home-table{
+  display:flex;
+  justify-content:center;
+  justify-items:center;
+  flex-direction:column;
+}
+#paginationCont ul{
+  display:flex;
+  justify-content:center;
+  text-align:center
+}

@@ -1,0 +1,8 @@
+.pagination{
+  display:flex;
+  justify-content:center;
+  justify-items:center;
+}
+li a{
+  color:black
+}

@@ -38,7 +38,6 @@
 #presensi-container{
   background-image: url('../img/images.jpg');
   background-position:top;
-  background-color:red;
   padding-top:10px;
 }
 @media (prefers-reduced-motion: no-preference) {

@@ -3,6 +3,7 @@ import Popup from '../container/Popup.jsx'
 import Loading from "../container/Loading.jsx"
 import SignatureCanvas from 'react-signature-canvas'
 import React, { useRef } from 'react'
+import Pagination from '../container/Pagination.jsx'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 const settings = require('../settings.json')
 class Home extends React.Component {
@@ -15,8 +16,11 @@ class Home extends React.Component {
             waktu_akhir : undefined,
             waktu_awal : undefined
         }],
+	currentIndex:1,
+	amount:5,
 	popup_message :"Lorem ipsum dolor si amet"
     }
+    this.PaginationRef = React.createRef()
 }
 componentDidMount(){
   this.getDatas()
@@ -59,7 +63,7 @@ async getDatas(){
 	    <Popup text={this.state.popup_message} />
       <div id='home-container'>
      <div class="card" id='card-home'>
-        <div class="card-body">
+        <div class="card-body" id="home-table">
 	      <table class="table" id="table-kegiatan">
 		<thead>
 		<tr>
@@ -71,18 +75,27 @@ async getDatas(){
 	      <tbody>
 
      {this.state.kegiatan.map((data,nume)=>{
+		let currentIndex = this.state.currentIndex
+		let amount = this.state.amount
+		let startIndex = (currentIndex*amount)-amount
+		let endIndex = (currentIndex*amount)-1
                 let link = '/presensi/' + data.id_kegiatan
+		if(nume>=startIndex && nume <=endIndex){
                 return(
 		<tr>
 		  <th scope="row">{nume+1}</th>
 		  <td>{data.nama_kegiatan}</td>
-		  <td><a href={link}>Link</a></td>
+		  <td><a href={link}>
+		  <button type="button" id="btnLink" class="btn btn-secondary">Link</button>
+		  </a></td>
 		</tr>
-                )
+                )}
             })}
 		</tbody>
 	    </table>
-           
+	    <div id="paginationCont">
+	    <Pagination datas={this.state.kegiatan} pageNumber={Math.ceil(this.state.kegiatan.length/this.state.amount)} amount={5} parent={this}/>
+	    </div>
         </div>
         </div>
          <div class="card" id='card-home'>

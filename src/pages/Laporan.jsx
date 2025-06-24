@@ -24,7 +24,7 @@ class Laporan extends React.Component {
   }
   componentDidMount(){
     this.getKegiatan()
-    this.getDatas()
+    //this.getDatas()
   }
 
   async getDatas(){
@@ -51,12 +51,14 @@ class Laporan extends React.Component {
     document.getElementById("loading-gif").style.display="none"
   }
   async getKegiatan(){
+    document.getElementById("loading-gif").style.display="block"
     let datas = await fetch(settings.serverURI + "/api/getAllKegiatan",{
       method:"GET"
     })
     let json_datas = await datas.json()
     this.setState({kegiatan:json_datas})
 
+    document.getElementById("loading-gif").style.display="none"
   }
   render() {
     return(
