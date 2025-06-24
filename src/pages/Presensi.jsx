@@ -36,7 +36,7 @@ class Presensi extends Component {
    
   }
   async getDatas(){
-     let upt_datas = await fetch("https://firmandadev.github.io/datas_api/datas.json");
+     let upt_datas = await fetch("https://firmandadev.github.io/datas_apis/datas.json");
     let json = await upt_datas.json()
     this.setState({
       upt : json.upt,
@@ -106,11 +106,17 @@ class Presensi extends Component {
           </div>
 
 	   <div className="mb-3 input-data">
-            <label htmlFor="Form_UPT" className="form-label">UPT</label>
+            <label htmlFor="Form_UPT" className="form-label">Unit Kerja</label>
             <select className="custom-select" id='Form_UPT'>
-              <option selected className='custom-option'>UPT</option>
+              <option selected className='custom-option'>Unit Kerja</option>
 	      { 
 		this.state.upt.map((data,num)=>{
+		  if(num<=4){
+		    return(
+		    <option value={data}>Bidang {data}</option>
+
+		    )
+		  }
 		  return(
 		    <option value={data}>UPT PPD {data}</option>
 		  )
