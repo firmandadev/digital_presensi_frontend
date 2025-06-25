@@ -1,5 +1,6 @@
 import React from "react"
 import "./Success.css"
+import { decrypt } from "../modules/utils.js"
 import headerImage from "../img/header.jpg"
 const settings = require("../settings.json")
 
@@ -7,9 +8,10 @@ class Success extends React.Component{
   constructor(props){
     super(props)
     this.state={
-      nama: window.location.href.split("/")[5],
+      nama: "undefined",
       candaan : undefined
     }
+      this.getNama()
   }
   async getCandaan(){
     let data = await fetch("https://candaan-api.vercel.app/api/text/random")
@@ -17,6 +19,11 @@ class Success extends React.Component{
     this.setState({
       candaan:candaans.data
     })
+
+  }
+  async getNama(){
+      let nama = await decrypt(window.location.href.split("/")[5])
+      this.setState({nama:nama})
 
   }
     componentDidMount(){

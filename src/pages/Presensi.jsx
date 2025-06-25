@@ -1,6 +1,7 @@
 import React, { Component, createRef } from 'react';
 import './Presensi.css';
 import logo from '../logo.svg';
+import { encrypt, decrypt } from "../modules/utils.js"
 import SignatureCanvas from 'react-signature-canvas';
 import Popup from '../container/Popup.jsx';
 import Loading from "../container/Loading.jsx";
@@ -73,6 +74,7 @@ class Presensi extends Component {
       jabatan: document.getElementById('Form_Jabatan').value,
       signature: this.sigCanvas.current.toDataURL(),
       upload_time: new Date().toLocaleString(),
+      no_hp :document.getElementById('Form_HP').value,
       id_acara: this.idKegiatan
     };
 
@@ -86,8 +88,8 @@ class Presensi extends Component {
       const json_data = await response.json();
       document.getElementById("loading-gif").style.display = "none";
       document.getElementById('popup-box-text').innerHTML = json_data.message;
-
-      window.location.href = "/presensi/success/" + sentDatas.nama.replaceAll(" ", "-");
+      let encrypted = await encrypt(document.getElementById('Form_Nama').value)
+      window.location.href = "/presensi/success/" + encrypted;
     } catch (err) {
       console.error(err);
     }
@@ -138,6 +140,12 @@ class Presensi extends Component {
 	      }
             </select>
           </div>
+	  <div className="mb-3 input-data">
+            <label htmlFor="Form_HP" className="form-label">Nomor WA</label>
+            <input type="text" className="form-control" id="Form_HP" placeholder="08xxx" />
+          </div>
+
+
           <div className="mb-3 input-data">
             <label className="form-label">Tanda Tangan</label>
             <SignatureCanvas
