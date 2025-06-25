@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "./Pagination.css"
 
 class Pagination extends Component {
   constructor(props) {
@@ -51,9 +52,10 @@ class Pagination extends Component {
     })
     let pageNumbers = document.getElementsByClassName("pageNumber")
     for(let i = 0;i<pageNumbers.length;i++){
-    pageNumbers[i].classList.remove("active")
+      pageNumbers[i].classList.remove("active")
     }
     pageNumbers[a-1].classList.add("active")
+
   }
 
   render() {

@@ -1,6 +1,7 @@
 import Loading from '../container/Loading.jsx'
 import './Laporan.css';
 import SignatureCanvas from 'react-signature-canvas'
+import Pagination from "../container/Pagination.jsx"
 import React, { useRef } from 'react'
 const settings = require('../settings.json')
 
@@ -16,6 +17,8 @@ class Laporan extends React.Component {
         upload_time: "undefined",
         id_acara : "undefined"
       }],
+      currentIndex:1,
+      amount:10,
       kegiatan:[{
 	id_kegiatan:undefined,
 	nama_kegiatan:undefined
@@ -95,6 +98,13 @@ class Laporan extends React.Component {
       <tbody itemID='table-content'>
         {
           this.state.datas.map((data,index)=>{
+		let currentIndex = this.state.currentIndex
+		let amount = this.state.amount
+		let startIndex = (currentIndex*amount)-amount
+		let endIndex = (currentIndex*amount)-1
+                let link = '/presensi/' + data.id_kegiatan
+		if(index>=startIndex && index <=endIndex){
+
             return(
               <tr>
                 <th scope="row">{index+1}</th>
@@ -106,13 +116,15 @@ class Laporan extends React.Component {
                 <td><img className='laporan-ttd' src={data.signature}></img></td>
 		<td></td>
               </tr>
-            )
+            )}
         })
     }
       </tbody>
     </table>
-     </div>
-    </div>
+       </div>       </div> <Pagination datas={this.state.datas} pageNumber={Math.ceil(this.state.datas.length/this.state.amount)} amount={this.state.amount} parent={this}/>
+
+
+
     </div>)
   }
 }
