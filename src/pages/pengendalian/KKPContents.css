@@ -1,0 +1,28 @@
+#kkpcontents-container{
+    display: grid;
+    grid-template-areas: "contents";
+    /* grid-template-columns: 200px 1fr; */
+    grid-template-rows: 100%;
+}
+#kkpcontents-card{
+    margin: 10px;
+    padding: 10px;
+    display: grid;
+    grid-template-areas: 
+    "contents"
+    "input";
+}
+#kkpcontents-table{
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+}
+#kkpcontents-form-catatan{
+    height: 150px;
+}
+#kkpcontents-form-saran{
+    height: 100px;
+}
+#kkpcontents-input-card{
+    margin-top: 10px;
+}
