@@ -80,6 +80,57 @@ class KKPContents       extends React.Component{
 
 
   }
+  printDoc(self){
+     const tableContent = document.getElementById("kkpcontents-table").innerHTML;
+  const printWindow = window.open('', '', 'height=600,width=800');
+  printWindow.document.write(`
+    <html>
+      <head>
+        <title>KKP Contents Table</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+          }
+            @page {
+    size: landscape;
+  }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          table, th, td {
+            border: 1px solid black;
+          }
+          th, td {
+            padding: 8px;
+            text-align: left;
+          }
+            #title-print{
+            text-align:center
+            }
+        </style>
+      </head>
+      <body>
+        <div id='title-print'>
+        <b>Kertas Kerja Pemeriksaan</b><br />
+        <b>UPT PPD ${this.state.upt.nama_upt}</b><br />
+        <b>Periode ${this.state.upt.tanggala} - ${this.state.upt.tanggalb}</b>
+        </div><br />
+        ${tableContent}
+        <div id='title-print'><br /><br />
+        <b>Mengetahui,</b><br />
+        <b>Ketua Tim</b><br /><br /><br />
+        <b>Pambudi Cahyanto, S.H., M.H.<br />
+        <b>19771014 199903 1 001</b>
+        </div>
+      </body>
+    </html>
+  `);
+  printWindow.document.close(); // necessary for IE >= 10       // necessary for some browsers
+  printWindow.print();
+  printWindow.close();
+  }
   render(){
     return(
       <div id="kkpcontents-container">
@@ -95,7 +146,10 @@ class KKPContents       extends React.Component{
                 </div>
                 </div>
             <div class="card" id='kkpcontents-table'>
-                <i class="button-custom fa-solid fa-rotate-right" onClick={()=>this.getKKPidentity(this)}></i>
+                <div id="table-actions">
+                    <i class="button-custom fa-solid fa-rotate-right" onClick={()=>this.getKKPidentity(this)}></i>
+                    <i class="button-custom fa-solid fa-print" onClick={()=>this.printDoc(this)}></i>
+                </div>
                 <table class="table">
             <thead>
                 <tr>

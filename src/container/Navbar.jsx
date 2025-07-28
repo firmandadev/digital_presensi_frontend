@@ -23,6 +23,9 @@ class Navbar extends React.Component {
         <li class="nav-item">
           <a class="nav-link" href="/pengendalian/kkp">KKP</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/dasarhukum">Dasar Hukum</a>
+        </li>
       </ul>
     </div>
   </div>

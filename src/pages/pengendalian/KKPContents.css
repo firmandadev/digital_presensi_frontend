@@ -27,3 +27,23 @@
 #kkpcontents-input-card{
     margin-top: 10px;
 }
+#table-actions{
+    display: flex;
+    align-content: center;
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  @page {
+    size: landscape;
+  }
+  #print-section, #print-section * {
+    visibility: visible;
+  }
+  #print-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
