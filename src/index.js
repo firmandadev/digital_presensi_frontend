@@ -13,6 +13,7 @@ import Kkp from './pages/pengendalian/kkp.jsx';
 import KKPContents from './pages/pengendalian/KKPContents.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
+import Preview from './pages/pengendalian/Preview.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,6 +30,7 @@ root.render(
         <Route path="/presensi/success/*" element={<Success />}/>
         <Route path="/pengendalian/kkp" element={<Kkp />}/>
         <Route path="/pengendalian/kkp/*" element={<KKPContents />}/>
+        <Route path="/pengendalian/kkp/prev*" element={<Preview />}/>
     </Routes>
     </BrowserRouter>
   </React.StrictMode>

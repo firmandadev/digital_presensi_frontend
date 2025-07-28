@@ -131,6 +131,9 @@ class KKPContents       extends React.Component{
   printWindow.print();
   printWindow.close();
   }
+  previewDoc(self){
+    document.location = '/pengendalian/kkp/prev/' + this.state.upt.id_kegiatan
+  }
   render(){
     return(
       <div id="kkpcontents-container">
@@ -149,6 +152,7 @@ class KKPContents       extends React.Component{
                 <div id="table-actions">
                     <i class="button-custom fa-solid fa-rotate-right" onClick={()=>this.getKKPidentity(this)}></i>
                     <i class="button-custom fa-solid fa-print" onClick={()=>this.printDoc(this)}></i>
+                    <i class="button-custom fa-solid fa-eye" onClick={()=>this.previewDoc(this)}></i>
                 </div>
                 <table class="table">
             <thead>
