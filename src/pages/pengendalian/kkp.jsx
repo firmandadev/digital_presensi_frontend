@@ -15,29 +15,67 @@ class Kkp extends React.Component{
             tanggalb : undefined,
             periodea : undefined,
             periodeb : undefined,
+            linknhp : "",
+            linklhp : "",
+            linksurat : "",
+            linkblangko : "",
         }]
     }
     this.getUPTDatas()
+  }
+  changeToMonthYear(inputDate){
+    const date = new Date(inputDate);
+    const monthYear = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+    return(monthYear)
+
   }
   getRandomID(){
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     return alphabet[Math.floor(Math.random() * alphabet.length)] + Math.floor(Math.random()*10000)
 }
-  async uploadKKP(self){
-        let datas = {
-            id_kegiatan : self.getRandomID().toUpperCase(),
+    async updateKKP(self){
+        document.getElementById("loading-gif").style.display = "block";
+         let datas = {
+            id_kegiatan : document.getElementById('kkp-form-id').value,
             nama_upt : document.getElementById('kkp-form-upt').value,
             tanggala : document.getElementById('kkp-form-tanggala').value,
             tanggalb : document.getElementById('kkp-form-tanggalb').value,
-            periodea : document.getElementById('kkp-form-periodea').value,
-            periodeb : document.getElementById('kkp-form-periodeb').value,
+            periodea : this.changeToMonthYear(document.getElementById('kkp-form-periodea').value),
+            periodeb : this.changeToMonthYear(document.getElementById('kkp-form-periodeb').value),
+            linknhp : document.getElementById('kkp-form-nhp').value,
+            linklhp : document.getElementById('kkp-form-lhp').value,
+            linksurat : document.getElementById('kkp-form-surat').value,
+            linkblangko : document.getElementById('kkp-form-blangko').value,
+        }
+        const response = await fetch(settings.serverURI + "/api/pengendalian/kkp/updateKKP/"+datas.id_kegiatan,{
+        method:"PUT",
+        headers:{'content-type':'application/json'},
+        body: JSON.stringify(datas)
+        })
+        const json  = await response.json()
+        document.getElementById("loading-gif").style.display = "none";
+    }
+  async uploadKKP(self){
+    document.getElementById("loading-gif").style.display = "block";
+    let datas = {
+        id_kegiatan : self.getRandomID().toUpperCase(),
+        nama_upt : document.getElementById('kkp-form-upt').value,
+        tanggala : document.getElementById('kkp-form-tanggala').value,
+        tanggalb : document.getElementById('kkp-form-tanggalb').value,
+        periodea : this.changeToMonthYear(document.getElementById('kkp-form-periodea').value),
+        periodeb : this.changeToMonthYear(document.getElementById('kkp-form-periodeb').value),
+        linknhp : document.getElementById('kkp-form-nhp').value,
+        linklhp : document.getElementById('kkp-form-lhp').value,
+        linksurat : document.getElementById('kkp-form-surat').value,
+        linkblangko : document.getElementById('kkp-form-blangko').value,
     }
     const response = await fetch(settings.serverURI + "/api/pengendalian/kkp/uploadKKP",{
       method:"POST",
       headers:{'content-type':'application/json'},
       body: JSON.stringify(datas)
     })
-    const json  = await response.json()
+    document.getElementById("loading-gif").style.display = "none";
+   
   }
    async getUPTDatas(){
         let upt_datas = await fetch("https://firmandadev.github.io/datas_apis/datas.json");
@@ -48,14 +86,28 @@ class Kkp extends React.Component{
         })
   }
   async getKKPDatas(){
+        document.getElementById("loading-gif").style.display = "block";
         let upt_datas = await fetch(settings.serverURI + "/api/pengendalian/kkp/getKKP");
         let json = await upt_datas.json()
         this.setState({
             datas:json
         })
+        document.getElementById("loading-gif").style.display = "none";
   }
   componentDidMount(){
     this.getKKPDatas()
+  }
+  setUpdate(data){
+    document.getElementById('kkp-form-id').value = data.id_kegiatan
+    document.getElementById('kkp-form-upt').value = data.nama_upt
+    document.getElementById('kkp-form-tanggala').value = data.tanggala
+    document.getElementById('kkp-form-tanggalb').value = data.tanggalb
+    document.getElementById('kkp-form-periodea').value = data.periodea
+    document.getElementById('kkp-form-periodeb').value = data.periodeb
+    document.getElementById('kkp-form-nhp').value = data.linknhp
+    document.getElementById('kkp-form-lhp').value = data.linklhp
+    document.getElementById('kkp-form-surat').value = data.linksurat
+    document.getElementById('kkp-form-blangko').value = data.linkblangko
   }
 
   render(){
@@ -71,6 +123,10 @@ class Kkp extends React.Component{
                 <th scope="col">Periode Awal</th>
                 <th scope="col">Periode Akhir</th>
                 <th scope="col">KKP</th>
+                <th scope="col">NHP</th>
+                <th scope="col">LHP</th>
+                <th scope="col">Surat</th>
+                <th scope="col">Blangko</th>
                 <th scope="col">Aksi</th>
                 </tr> 
             </thead>
@@ -85,15 +141,24 @@ class Kkp extends React.Component{
                         <td>{data.periodea}</td>
                         <td>{data.periodeb}</td>
                         <td><a href={link}>Link</a></td>
-                        <td>Hapus</td>
+                        <td><a href={data.linknhp}>Link</a></td>
+                        <td><a href={data.linklhp}>Link</a></td>
+                        <td><a href={data.linksurat}>Link</a></td>
+                        <td><a href={data.linkblangko}>Link</a></td>
+                        <td><i class="button-custom fa-solid fa-pen" onClick={()=>this.setUpdate(data)}></i><i class=" button-custom fa-solid fa-trash"/></td>
                         </tr>
                     )
                 })}
             </tbody>
             </table>
         </div>
+        
         <div class="card" id='kkp-input-card'>
         <div class="card-body">
+                   <div class="mb-3 input-data">
+                <label htmlFor="kkp-form-id" className="form-label">ID</label>
+                <input readOnly type="text" class="form-control" id="kkp-form-id" placeholder="Tanggal Awal"/>
+            </div>
             <div className="mb-3 input-data">
                 <label htmlFor="kkp-form-upt" className="form-label">Unit Kerja</label>
                 <select className="custom-select" id='kkp-form-upt'>
@@ -113,6 +178,7 @@ class Kkp extends React.Component{
                 }
                 </select>
             </div>
+      
              <div class="mb-3 input-data">
                 <label htmlFor="kkp-form-tanggala" className="form-label">Tanggal Pengendalian Awal</label>
                 <input type="date" class="form-control" id="kkp-form-tanggala" placeholder="Tanggal Awal"/>
@@ -129,7 +195,24 @@ class Kkp extends React.Component{
                 <label htmlFor="kkpform-periodeb" className="form-label">Periode Akhir</label>
                 <input type="date" class="form-control" id="kkp-form-periodeb" placeholder="Periode Akhir"/>
             </div>
+            <div class="mb-3 input-data">
+                <label htmlFor="kkp-form-nhp" className="form-label">Link NHP</label>
+                <input type="text" class="form-control" id="kkp-form-nhp" placeholder="Link NHP"/>
+            </div>
+            <div class="mb-3 input-data">
+                <label htmlFor="kkp-form-lhp" className="form-label">Link LHP</label>
+                <input type="text" class="form-control" id="kkp-form-lhp" placeholder="Link LHP"/>
+            </div>
+            <div class="mb-3 input-data">
+                <label htmlFor="kkp-form-surat" className="form-label">Link Surat</label>
+                <input type="text" class="form-control" id="kkp-form-surat" placeholder="Link Surat"/>
+            </div>
+            <div class="mb-3 input-data">
+                <label htmlFor="kkp-form-blangko" className="form-label">Link Blangko</label>
+                <input type="text" class="form-control" id="kkp-form-blangko" placeholder="Link Blangko"/>
+            </div>
             <button type="button" className="btn btn-primary" id='hapus-ttd' onClick={()=>this.uploadKKP(this)}>Buat</button>
+            <button type="button" className="btn btn-primary" id='hapus-ttd' onClick={()=>this.updateKKP(this)}>Update</button>
         </div>
         </div>
         </div>

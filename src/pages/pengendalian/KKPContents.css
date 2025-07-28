@@ -16,6 +16,7 @@
     margin-top: 10px;
     width: 100%;
     padding: 10px;
+    overflow-x: scroll;
 }
 #kkpcontents-form-catatan{
     height: 150px;

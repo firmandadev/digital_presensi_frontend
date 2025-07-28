@@ -14,6 +14,7 @@ class KKPContents       extends React.Component{
             catatan: undefined,
             id_kegiatan: undefined,
             keterangan: undefined,
+            bulan : undefined,
             noberkas : undefined,
             saran: undefined
         }],
@@ -27,6 +28,7 @@ class KKPContents       extends React.Component{
             catatan : document.getElementById('kkpcontents-form-catatan').value,
             bidang : document.getElementById('kkpcontents-form-bidang').value,
             noberkas : document.getElementById('kkpcontents-form-noberkas').value,
+            bulan : this.changeToMonthYear(document.getElementById('kkpcontents-form-bulan').value),
             saran : document.getElementById('kkpcontents-form-saran').value,
             keterangan : document.getElementById('kkpcontents-form-keterangan').value
     }
@@ -43,7 +45,12 @@ class KKPContents       extends React.Component{
     document.getElementById('popup-box-text').innerHTML = json.message;
 
   }
+    changeToMonthYear(inputDate){
+        const date = new Date(inputDate);
+        const monthYear = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+        return(monthYear)
 
+    }
   componentDidMount(){
     this.getKKPidentity()
   }
@@ -81,7 +88,7 @@ class KKPContents       extends React.Component{
                 <div class="card-body">
                     <ul class="list-group">
                         <li class="list-group-item">{this.state.upt.id_kegiatan}</li>
-                        <li class="list-group-item">UPT{this.state.upt.nama_upt}</li>
+                        <li class="list-group-item">UPT PPD {this.state.upt.nama_upt}</li>
                         <li class="list-group-item">Periode: {this.state.upt.periodea} - {this.state.upt.periodeb}</li>
                         <li class="list-group-item">Tanggal Pengendalian: {this.state.upt.tanggala} - {this.state.upt.tanggalb}</li>
                     </ul>
@@ -96,6 +103,7 @@ class KKPContents       extends React.Component{
                 <th scope="col">Catatan</th>
                 <th scope="col">Bidang</th>
                 <th scope="col">No Berkas/BKU</th>
+                <th scope="col">Bulan</th>
                 <th scope="col">Saran</th>
                 <th scope="col">Keterangan</th>
                 <th scope="col">Aksi</th>
@@ -110,6 +118,7 @@ class KKPContents       extends React.Component{
                                 <td>{data.catatan}</td>
                                 <td>{data.bidang}</td>
                                 <td>{data.noberkas}</td>
+                                <td>{data.bulan}</td>
                                 <td>{data.saran}</td>
                                 <td>{data.keterangan}</td>
                                 <td><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(this)}></i></td>
@@ -141,6 +150,10 @@ class KKPContents       extends React.Component{
             <div class="mb-3 input-data">
                 <label htmlFor="kkpcontents-form-noberkas" className="form-label">No Berkas</label>
                 <input type="text" class="form-control" id="kkpcontents-form-noberkas" placeholder="No Berkas"/>
+            </div>
+            <div class="mb-3 input-data">
+                <label htmlFor="kkpcontents-form-bulan" className="form-label">Bulan</label>
+                <input type="date" class="form-control" id="kkpcontents-form-bulan" placeholder="Bulan"/>
             </div>
             <div class="mb-3 input-data">
                 <label htmlFor="kkpcontents-form-saran" className="form-label">Saran</label>
