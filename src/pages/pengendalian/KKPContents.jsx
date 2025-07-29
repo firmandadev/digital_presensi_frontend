@@ -43,6 +43,12 @@ class KKPContents       extends React.Component{
     document.getElementById("loading-gif").style.display = "none";
     document.getElementById("popup-container").style.display = "flex"
     document.getElementById('popup-box-text').innerHTML = json.message;
+    document.getElementById('kkpcontents-form-catatan').value = ""
+    document.getElementById('kkpcontents-form-bidang').value = ""
+    document.getElementById('kkpcontents-form-noberkas').value = ""
+    document.getElementById('kkpcontents-form-bulan').value = ""
+    document.getElementById('kkpcontents-form-saran').value = ""
+    document.getElementById('kkpcontents-form-keterangan').value = ""
 
   }
     changeToMonthYear(inputDate){
