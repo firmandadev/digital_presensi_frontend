@@ -1,16 +1,19 @@
 import React from "react"
 import "./KKPContents.css"
+import { login, logout, isLoggedIn } from '../../modules/utils';
 import Popup from "../../container/Popup"
 const settings = require("../../settings.json")
 
 class KKPContents       extends React.Component{
   constructor(props){
     super(props)
+    isLoggedIn()
     this.idKegiatan = window.location.href.split('/').slice(-1)[0];
     this.state={
         upt:{},
         contents : [{
             bidang: undefined,
+            user : undefined,
             catatan: undefined,
             id_kegiatan: undefined,
             keterangan: undefined,
@@ -28,6 +31,7 @@ class KKPContents       extends React.Component{
 }
   async uploadKKPContents(self){
      let datas = {
+            user : localStorage.getItem('username'),
             id_content : this.getRandomID(),
             id_kegiatan : this.state.upt.id_kegiatan,
             catatan : document.getElementById('kkpcontents-form-catatan').value,
@@ -89,7 +93,7 @@ class KKPContents       extends React.Component{
     document.getElementById("loading-gif").style.display = "none";
     document.getElementById("popup-container").style.display = "flex"
     document.getElementById('popup-box-text').innerHTML = json.message;
-
+    this.getKKPidentity()
 
   }
   printDoc(self){
@@ -153,10 +157,9 @@ class KKPContents       extends React.Component{
                 <div class="card">
                 <div class="card-body">
                     <ul class="list-group">
-                        <li class="list-group-item">{this.state.upt.id_kegiatan}</li>
-                        <li class="list-group-item">UPT PPD {this.state.upt.nama_upt}</li>
-                        <li class="list-group-item">Periode: {this.state.upt.periodea} - {this.state.upt.periodeb}</li>
-                        <li class="list-group-item">Tanggal Pengendalian: {this.state.upt.tanggala} - {this.state.upt.tanggalb}</li>
+                        <li class="list-group-item"><b>UPT PPD {this.state.upt.nama_upt}</b></li>
+                        <li class="list-group-item">Periode: <i>{this.state.upt.periodea} - {this.state.upt.periodeb}</i></li>
+                        <li class="list-group-item">Tanggal Pengendalian: <i>{this.state.upt.tanggala} - {this.state.upt.tanggalb}</i></li>
                     </ul>
                 </div>
                 </div>
@@ -170,6 +173,7 @@ class KKPContents       extends React.Component{
             <thead>
                 <tr>
                 <th scope="col">No</th>
+                <th scope="col">User</th>
                 <th scope="col">Catatan</th>
                 <th scope="col">Bidang</th>
                 <th scope="col">No Berkas/BKU</th>
@@ -182,18 +186,33 @@ class KKPContents       extends React.Component{
             <tbody>
                 {
                     this.state.contents.map((data,num)=>{
+                      if(localStorage.getItem('username') == data.user){
                         return(
                             <tr>
                                 <td scope="row">{num+1}</td>
+                                <td>{data.user}</td>
                                 <td>{data.catatan}</td>
                                 <td>{data.bidang}</td>
                                 <td>{data.noberkas}</td>
                                 <td>{data.bulan}</td>
                                 <td>{data.saran}</td>
                                 <td>{data.keterangan}</td>
-                                <td><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i></td>
+                                <td><i class="button-custom fa-solid fa-pen"></i><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i></td>
                             </tr>
-                        )
+                        )}else{
+                          return(
+                            <tr>
+                                <td scope="row">{num+1}</td>
+                                <td>{data.user}</td>
+                                <td>{data.catatan}</td>
+                                <td>{data.bidang}</td>
+                                <td>{data.noberkas}</td>
+                                <td>{data.bulan}</td>
+                                <td>{data.saran}</td>
+                                <td>{data.keterangan}</td>
+                                <td><i>Bukan User</i></td>
+                            </tr>)
+                        }
                     })
                 }
             </tbody>

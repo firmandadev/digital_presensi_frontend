@@ -1,4 +1,6 @@
-// module.js - Web Crypto API based encryption/decryption (URL-safe)
+import { use } from "react";
+
+const settings = require("../settings.json")
 
 export async function encrypt(text, password) {
   const enc = new TextEncoder();
@@ -30,4 +32,32 @@ export async function decrypt(encrypted, password) {
   } catch (e) {
     return '❌ Gagal dekripsi (password salah atau data rusak)';
   }
-}	
+}
+export async function login(username,password){
+  let datas = {
+    username : username,
+    password : password
+  }
+  const response = await fetch(settings.serverURI + "/api/pengendalian/login",{
+      method:"POST",
+      headers:{'content-type':'application/json'},
+      body: JSON.stringify(datas)
+    })
+    const json  = await response.json()
+    console.log(json)
+    return json
+
+}
+export async function logout(){
+  localStorage.removeItem('authToken')
+  localStorage.removeItem('username')
+  window.location = '/pengendalian/login'
+}
+export async function isLoggedIn(){
+  if(!!localStorage.getItem('username') && !!localStorage.getItem('authToken')){
+    return
+  }else{
+    window.location = '/pengendalian/login'
+  }
+}
+

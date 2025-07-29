@@ -7,6 +7,7 @@ import Error from './pages/Error';
 import Success from './pages/Success.jsx'
 import Loading from './container/Loading.jsx'
 import Navbar from './container/Navbar.jsx';
+import Login from './pages/pengendalian/Login.jsx';
 import Presensi from './pages/Presensi';
 import Home from './pages/Home';
 import Kkp from './pages/pengendalian/kkp.jsx';
@@ -31,6 +32,7 @@ root.render(
         <Route path="/pengendalian/kkp" element={<Kkp />}/>
         <Route path="/pengendalian/kkp/*" element={<KKPContents />}/>
         <Route path="/pengendalian/kkp/prev*" element={<Preview />}/>
+        <Route path="/pengendalian/login" element={<Login />}/>
     </Routes>
     </BrowserRouter>
   </React.StrictMode>

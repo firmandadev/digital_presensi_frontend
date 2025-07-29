@@ -1,11 +1,13 @@
 import React from "react"
 import "./kkp.css"
+import { login, logout, isLoggedIn } from '../../modules/utils';
 import Popup from "../../container/Popup"
 const settings = require("../../settings.json")
 
 class Kkp extends React.Component{
   constructor(props){
     super(props)
+    isLoggedIn()
     this.state={
         upt:[],
         datas:[{

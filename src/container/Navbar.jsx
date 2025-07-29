@@ -1,6 +1,7 @@
 
 import SignatureCanvas from 'react-signature-canvas'
 import React, { useRef } from 'react'
+import { logout, isLoggedIn } from '../modules/utils'
 
 class Navbar extends React.Component {
   constructor(props){                                               super(props)                                      
@@ -25,6 +26,13 @@ class Navbar extends React.Component {
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/dasarhukum">Dasar Hukum</a>
+        </li>
+        <li class="nav-item button-custom">
+          <b class="nav-link" href="/dasarhukum"><i class="fa-solid fa-user"></i> {localStorage.getItem('username')}</b>
+        </li>
+        
+        <li class="nav-item button-custom" onClick={()=>logout()}>
+          <b class="nav-link"><i class="fa-solid fa-right-from-bracket"></i> Logout</b>
         </li>
       </ul>
     </div>
