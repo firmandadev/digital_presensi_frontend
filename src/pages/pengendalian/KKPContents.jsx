@@ -49,6 +49,7 @@ class KKPContents       extends React.Component{
     document.getElementById('kkpcontents-form-bulan').value = ""
     document.getElementById('kkpcontents-form-saran').value = ""
     document.getElementById('kkpcontents-form-keterangan').value = ""
+    this.getKKPidentity()
 
   }
     changeToMonthYear(inputDate){
@@ -185,7 +186,7 @@ class KKPContents       extends React.Component{
                                 <td>{data.bulan}</td>
                                 <td>{data.saran}</td>
                                 <td>{data.keterangan}</td>
-                                <td><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(this)}></i></td>
+                                {/* <td><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(this)}></i></td> */}
                             </tr>
                         )
                     })
