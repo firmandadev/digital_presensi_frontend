@@ -22,8 +22,13 @@ class KKPContents       extends React.Component{
     }
     
   }
+  getRandomID(){
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    return alphabet[Math.floor(Math.random() * alphabet.length)] + Math.floor(Math.random()*100000)
+}
   async uploadKKPContents(self){
      let datas = {
+            id_content : this.getRandomID(),
             id_kegiatan : this.state.upt.id_kegiatan,
             catatan : document.getElementById('kkpcontents-form-catatan').value,
             bidang : document.getElementById('kkpcontents-form-bidang').value,
@@ -75,9 +80,9 @@ class KKPContents       extends React.Component{
   test(){
         document.getElementById("popup-container").style.display = "flex"
   }
-  async deleteContent(self){
+  async deleteContent(id_content){
     document.getElementById("loading-gif").style.display = "block";
-    let response = await fetch(settings.serverURI + "/api/pengendalian/kkp/deleteKKP/"+ this.idKegiatan,{
+    let response = await fetch(settings.serverURI + "/api/pengendalian/kkp/deleteKKP/"+ id_content,{
         method:"DELETE"
     })
     let json = await response.json()
@@ -186,7 +191,7 @@ class KKPContents       extends React.Component{
                                 <td>{data.bulan}</td>
                                 <td>{data.saran}</td>
                                 <td>{data.keterangan}</td>
-                                {/* <td><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(this)}></i></td> */}
+                                <td><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i></td>
                             </tr>
                         )
                     })
