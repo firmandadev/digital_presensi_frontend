@@ -70,6 +70,30 @@ class KKPContents       extends React.Component{
   componentDidMount(){
     this.getKKPidentity()
   }
+  async updateContent(self){
+        document.getElementById("loading-gif").style.display = "block";
+         let datas = {
+            user : localStorage.getItem('username'),
+            id_content :  document.getElementById('kkpcontents-form-id').value,
+            id_kegiatan : this.state.upt.id_kegiatan,
+            catatan : document.getElementById('kkpcontents-form-catatan').value,
+            bidang : document.getElementById('kkpcontents-form-bidang').value,
+            noberkas : document.getElementById('kkpcontents-form-noberkas').value,
+            bulan : this.changeToMonthYear(document.getElementById('kkpcontents-form-bulan').value),
+            saran : document.getElementById('kkpcontents-form-saran').value,
+            keterangan : document.getElementById('kkpcontents-form-keterangan').value
+        }
+        const response = await fetch(settings.serverURI + "/api/pengendalian/kkp/updateContent",{
+        method:"PUT",
+        headers:{'content-type':'application/json'},
+        body: JSON.stringify(datas)
+        })
+        const json  = await response.json()
+        document.getElementById("loading-gif").style.display = "none";
+        document.getElementById("popup-container").style.display = "flex"
+        document.getElementById('popup-box-text').innerHTML = json.message;
+        this.getKKPidentity()
+    }
   async getKKPidentity(){
         document.getElementById("loading-gif").style.display = "block";
         let upt_datas = await fetch(settings.serverURI + "/api/pengendalian/kkp/getKKP/"+this.idKegiatan);
@@ -150,6 +174,15 @@ class KKPContents       extends React.Component{
   previewDoc(self){
     document.location = '/pengendalian/kkp/prev/' + this.state.upt.id_kegiatan
   }
+  setUpdateContent(data){
+            document.getElementById('kkpcontents-form-id').value = data.id_content
+            document.getElementById('kkpcontents-form-catatan').value = data.catatan
+            document.getElementById('kkpcontents-form-bidang').value = data.bidang
+            document.getElementById('kkpcontents-form-noberkas').value = data.noberkas
+            document.getElementById('kkpcontents-form-bulan').value = data.bulan
+            document.getElementById('kkpcontents-form-saran').value = data.saran
+            document.getElementById('kkpcontents-form-keterangan').value = data.keterangan
+  }
   render(){
     return(
       <div id="kkpcontents-container">
@@ -197,7 +230,7 @@ class KKPContents       extends React.Component{
                                 <td>{data.bulan}</td>
                                 <td>{data.saran}</td>
                                 <td>{data.keterangan}</td>
-                                <td><i class="button-custom fa-solid fa-pen"></i><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i></td>
+                                <td><i class="button-custom fa-solid fa-pen" onClick={()=>this.setUpdateContent(data)}></i><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i></td>
                             </tr>
                         )}else{
                           return(
@@ -220,6 +253,10 @@ class KKPContents       extends React.Component{
         </div>
         <div class="card" id='kkpcontents-input-card'>
         <div class="card-body">
+          <div class="mb-3 input-data">
+                <label htmlFor="kkpcontents-form-id" className="form-label">ID</label>
+                <textarea type="text" class="form-control" id="kkpcontents-form-id" placeholder="ID" readOnly/>
+            </div>
             <div className="mb-3 input-data">
                 <label htmlFor="kkp-form-upt" className="form-label">Bidang</label>
                 <select className="custom-select" id='kkpcontents-form-bidang'>
@@ -241,7 +278,7 @@ class KKPContents       extends React.Component{
                 <input type="text" class="form-control" id="kkpcontents-form-noberkas" placeholder="No Berkas"/>
             </div>
             <div class="mb-3 input-data">
-                <label htmlFor="kkpcontents-form-bulan" className="form-label">Bulan</label>
+                <label htmlFor="kkpcontents-form-bulan" className="form-label">Bulan (Wajib diisi lagi waktu update)</label>
                 <input type="date" class="form-control" id="kkpcontents-form-bulan" placeholder="Bulan"/>
             </div>
             <div class="mb-3 input-data">
@@ -253,7 +290,7 @@ class KKPContents       extends React.Component{
                 <input type="text" class="form-control" id="kkpcontents-form-keterangan" placeholder="Keterangan"/>
             </div>
             <button type="button" className="btn btn-primary" id='hapus-ttd' onClick={()=>this.uploadKKPContents(this)}>Buat</button>
-            <button type="button" className="btn btn-primary" id='hapus-ttd' onClick={()=>this.test(this)}>Test</button>
+            <button type="button" className="btn btn-primary" id='hapus-ttd' onClick={()=>this.updateContent(this)}>Update</button>
         </div>
         </div>
         </div>
