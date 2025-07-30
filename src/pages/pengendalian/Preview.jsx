@@ -1,6 +1,9 @@
 import './Preview.css';
 import React, { useRef } from 'react'
+import { useReactToPrint } from "react-to-print";
 const settings = require('../../settings.json')
+
+
 class Preview extends React.Component {
   constructor(props){
     super(props)
@@ -33,7 +36,7 @@ async getKKPidentity(){
 
   }
 printTable = () => {
-  const tableContent = document.getElementById("kkpcontents-table")?.innerHTML;
+  const tableContent = document.getElementById("kkpcontents-table").innerHTML;
 
   if (!tableContent) {
     alert("Table content not found.");
@@ -72,13 +75,17 @@ printTable = () => {
             text-align: justify;
             font-size:12px
         }
+            .catatan-contents{
+            white-space: pre-line;
+            word-wrap: break-word;
+          }
         </style>
       </head>
       <body>
         <h2>Kertas Kerja Pemeriksaan<br/>
         UPT PPD ${this.state.upt.nama_upt}<br/>
         Periode ${this.state.upt.periodea} - ${this.state.upt.periodeb}</h2>
-        <div>${tableContent}</div>
+        <div className='catatan-contents'>${tableContent}</div>
         <br/><br/>
         <div style="text-align:center">
           <h2>Mengetahui,</h2>
@@ -89,7 +96,7 @@ printTable = () => {
       </body>
     </html>
   `);
-
+  console.log(tableContent)
   printWindow.document.close();
   printWindow.focus();
   printWindow.print();
@@ -98,6 +105,7 @@ printTable = () => {
 backToKKP(self){
     document.location = '/pengendalian/kkp/' + this.idKegiatan
 }
+
   render(){
     return(
 	    <div>
@@ -111,10 +119,10 @@ backToKKP(self){
 <div class="card" id='kkpcontents-table'>
     
                 <div id="table-actions">
-                    <i class="button-custom fa-solid fa-print" onClick={()=>this.printTable(this)}></i>
+                    <i class="button-custom fa-solid fa-print" onClick={()=>this.printTable()}></i>
                     <i class="button-custom fa-solid fa-xmark" onClick={()=>this.backToKKP(this)}></i>
                 </div>
-                <table class="table">
+                <table class="table" id='kkpcontents-table2' >
             <thead>
                 <tr>
                 <th scope="col">No</th>

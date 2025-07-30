@@ -16,6 +16,10 @@
 }
 .catatan-contents{
   white-space: pre-line;
+  word-wrap: break-word;
+}
+#kkpcontents-table{
+  white-space: pre-line;
 }
 #preview-header{
     font-size: 14px;

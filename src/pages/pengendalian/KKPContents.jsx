@@ -208,6 +208,7 @@ class KKPContents       extends React.Component{
   render(){
     return(
       <div id="kkpcontents-container">
+          
             <div class="card" id='kkpcontents-card'>
                 <div class="card">
                 <div class="card-body">
