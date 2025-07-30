@@ -92,7 +92,16 @@ class KKPContents       extends React.Component{
         document.getElementById("loading-gif").style.display = "none";
         document.getElementById("popup-container").style.display = "flex"
         document.getElementById('popup-box-text').innerHTML = json.message;
+        document.getElementById('kkpcontents-form-id').value = ""
+        document.getElementById('kkpcontents-form-catatan').value = ""
+        document.getElementById('kkpcontents-form-bidang').value = ""
+        document.getElementById('kkpcontents-form-noberkas').value = ""
+        document.getElementById('kkpcontents-form-bulan').value = ""
+        document.getElementById('kkpcontents-form-saran').value = ""
+        document.getElementById('kkpcontents-form-keterangan').value = ""
         this.getKKPidentity()
+        document.getElementById('update-content-button').style.display = "none"
+        document.getElementById('upload-content-button').style.display = "block"
     }
   async getKKPidentity(){
         document.getElementById("loading-gif").style.display = "block";
@@ -182,6 +191,8 @@ class KKPContents       extends React.Component{
             document.getElementById('kkpcontents-form-bulan').value = data.bulan
             document.getElementById('kkpcontents-form-saran').value = data.saran
             document.getElementById('kkpcontents-form-keterangan').value = data.keterangan
+            document.getElementById('update-content-button').style.display = "block"
+            document.getElementById('upload-content-button').style.display = "none"
   }
   render(){
     return(
@@ -289,8 +300,8 @@ class KKPContents       extends React.Component{
                 <label htmlFor="kkpcontents-form-keterangan" className="form-label">Keterangan</label>
                 <input type="text" class="form-control" id="kkpcontents-form-keterangan" placeholder="Keterangan"/>
             </div>
-            <button type="button" className="btn btn-primary" id='hapus-ttd' onClick={()=>this.uploadKKPContents(this)}>Buat</button>
-            <button type="button" className="btn btn-primary" id='hapus-ttd' onClick={()=>this.updateContent(this)}>Update</button>
+            <button type="button" className="btn btn-primary" id='upload-content-button' onClick={()=>this.uploadKKPContents(this)}>Buat</button>
+            <button type="button" className="btn btn-primary" id='update-content-button' onClick={()=>this.updateContent(this)}>Update</button>
         </div>
         </div>
         </div>

@@ -18,6 +18,9 @@
     padding: 10px;
     overflow-x: scroll;
 }
+#update-content-button{
+  display: none;
+}
 #kkpcontents-form-catatan{
     height: 150px;
 }
