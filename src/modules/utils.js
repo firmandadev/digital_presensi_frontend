@@ -15,6 +15,31 @@ export async function encrypt(text, password) {
   const ivStr = btoa(String.fromCharCode(...iv));
   return encodeURIComponent(ivStr + '.' + ctStr); // iv.ciphertext (URL-safe)
 }
+export function convertMonthToIndonesia(input){
+  if (typeof input !== "string") return input; // Safeguard
+
+  const monthMap = {
+    January: "Januari",
+    February: "Februari",
+    March: "Maret",
+    April: "April",
+    May: "Mei",
+    June: "Juni",
+    July: "Juli",
+    August: "Agustus",
+    September: "September",
+    October: "Oktober",
+    November: "November",
+    December: "Desember"
+  };
+
+  for (let [eng, indo] of Object.entries(monthMap)) {
+    const regex = new RegExp(`\\b${eng}\\b`, "g");
+    input = input.replace(regex, indo);
+  }
+
+  return input;
+}
 
 export async function decrypt(encrypted, password) {
   try {

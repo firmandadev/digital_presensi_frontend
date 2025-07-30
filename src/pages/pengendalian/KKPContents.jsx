@@ -1,6 +1,6 @@
 import React from "react"
 import "./KKPContents.css"
-import { login, logout, isLoggedIn } from '../../modules/utils';
+import { login, logout, isLoggedIn, convertMonthToIndonesia } from '../../modules/utils';
 import Popup from "../../container/Popup"
 const settings = require("../../settings.json")
 
@@ -184,26 +184,26 @@ class KKPContents       extends React.Component{
     document.location = '/pengendalian/kkp/prev/' + this.state.upt.id_kegiatan
   }
   setUpdateContent(data){
-            document.getElementById('kkpcontents-form-id').value = data.id_content
-            document.getElementById('kkpcontents-form-catatan').value = data.catatan
-            document.getElementById('kkpcontents-form-bidang').value = data.bidang
-            document.getElementById('kkpcontents-form-noberkas').value = data.noberkas
-            document.getElementById('kkpcontents-form-bulan').value = data.bulan
-            document.getElementById('kkpcontents-form-saran').value = data.saran
-            document.getElementById('kkpcontents-form-keterangan').value = data.keterangan
-            document.getElementById('update-content-button').style.display = "block"
-            document.getElementById('upload-content-button').style.display = "none"
+    document.getElementById('kkpcontents-form-id').value = data.id_content
+    document.getElementById('kkpcontents-form-catatan').value = data.catatan
+    document.getElementById('kkpcontents-form-bidang').value = data.bidang
+    document.getElementById('kkpcontents-form-noberkas').value = data.noberkas
+    document.getElementById('kkpcontents-form-bulan').value = data.bulan
+    document.getElementById('kkpcontents-form-saran').value = data.saran
+    document.getElementById('kkpcontents-form-keterangan').value = data.keterangan
+    document.getElementById('update-content-button').style.display = "block"
+    document.getElementById('upload-content-button').style.display = "none"
   }
   abortContent(){
     document.getElementById('kkpcontents-form-id').value = ""
-            document.getElementById('kkpcontents-form-catatan').value = ""
-            document.getElementById('kkpcontents-form-bidang').value = ""
-            document.getElementById('kkpcontents-form-noberkas').value = ""
-            document.getElementById('kkpcontents-form-bulan').value = ""
-            document.getElementById('kkpcontents-form-saran').value = ""
-            document.getElementById('kkpcontents-form-keterangan').value = ""
-            document.getElementById('update-content-button').style.display = "none"
-            document.getElementById('upload-content-button').style.display = "block"
+      document.getElementById('kkpcontents-form-catatan').value = ""
+      document.getElementById('kkpcontents-form-bidang').value = ""
+      document.getElementById('kkpcontents-form-noberkas').value = ""
+      document.getElementById('kkpcontents-form-bulan').value = ""
+      document.getElementById('kkpcontents-form-saran').value = ""
+      document.getElementById('kkpcontents-form-keterangan').value = ""
+      document.getElementById('update-content-button').style.display = "none"
+      document.getElementById('upload-content-button').style.display = "block"
   }
   render(){
     return(
@@ -250,7 +250,7 @@ class KKPContents       extends React.Component{
                                 <td><p className="catatan-contents">{data.catatan}</p></td>
                                 <td>{data.bidang}</td>
                                 <td>{data.noberkas}</td>
-                                <td>{data.bulan}</td>
+                                <td>{convertMonthToIndonesia(data.bulan)}</td>
                                 <td>{data.saran}</td>
                                 <td>{data.keterangan}</td>
                                 <td><i class="button-custom fa-solid fa-pen" onClick={()=>this.setUpdateContent(data)}></i><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i></td>
@@ -263,7 +263,7 @@ class KKPContents       extends React.Component{
                                 <td><p className="catatan-contents">{data.catatan}</p></td>
                                 <td>{data.bidang}</td>
                                 <td>{data.noberkas}</td>
-                                <td>{data.bulan}</td>
+                                <td>{convertMonthToIndonesia(data.bulan)}</td>
                                 <td>{data.saran}</td>
                                 <td>{data.keterangan}</td>
                                 <td><i>Bukan User</i></td>

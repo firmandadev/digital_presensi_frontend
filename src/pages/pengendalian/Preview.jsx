@@ -1,7 +1,9 @@
 import './Preview.css';
 import React, { useRef } from 'react'
 import { useReactToPrint } from "react-to-print";
+import { convertMonthToIndonesia } from '../../modules/utils';
 const settings = require('../../settings.json')
+
 
 
 class Preview extends React.Component {
@@ -31,7 +33,6 @@ async getKKPidentity(){
             upt:json.upt,
             contents:json.contents
         })
-        console.log(json)
         document.getElementById("loading-gif").style.display = "none";
 
   }
@@ -66,25 +67,46 @@ printTable = () => {
             padding: 8px;
             font-size:12px
             text-align: justify;
+            border-collapse: collapse;
           }
           h2 {
             text-align: center;
             font-size: 14px;
           }
+            
         tr{
             text-align: justify;
             font-size:12px
+            border-collapse: collapse;
         }
             .catatan-contents{
             white-space: pre-line;
             word-wrap: break-word;
+            border-collapse: collapse;
           }
+            #kkpcontents-table2{
+             border-collapse: collapse;
+            }
+             @media print {
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tfoot {
+    display: table-footer-group;
+  }
+            
         </style>
       </head>
       <body>
         <h2>Kertas Kerja Pemeriksaan<br/>
         UPT PPD ${this.state.upt.nama_upt}<br/>
-        Periode ${this.state.upt.periodea} - ${this.state.upt.periodeb}</h2>
+        Periode ${convertMonthToIndonesia(this.state.upt.periodea)} - ${convertMonthToIndonesia(this.state.upt.periodeb)}</h2>
         <div className='catatan-contents'>${tableContent}</div>
         <br/><br/>
         <div style="text-align:center">
@@ -96,7 +118,6 @@ printTable = () => {
       </body>
     </html>
   `);
-  console.log(tableContent)
   printWindow.document.close();
   printWindow.focus();
   printWindow.print();
@@ -112,7 +133,7 @@ backToKKP(self){
             <div id='preview-header'>
                 <h2>Kertas Kerja Pemeriksaan<br/>
                 UPT PPD {this.state.upt.nama_upt}<br/>
-                Periode {this.state.upt.periodea} - {this.state.upt.periodeb}
+                Periode {convertMonthToIndonesia(this.state.upt.periodea)} - {convertMonthToIndonesia(this.state.upt.periodeb)}
                 </h2>
             </div>
             
@@ -143,7 +164,7 @@ backToKKP(self){
                                 <td><p className="catatan-contents">{data.catatan}</p></td>
                                 <td>{data.bidang}</td>
                                 <td>{data.noberkas}</td>
-                                <td>{data.bulan}</td>
+                                <td>{convertMonthToIndonesia(data.bulan)}</td>
                                 <td>{data.saran}</td>
                                 <td>{data.keterangan}</td>
                             </tr>
