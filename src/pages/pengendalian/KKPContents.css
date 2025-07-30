@@ -18,6 +18,9 @@
     padding: 10px;
     overflow-x: scroll;
 }
+.catatan-contents{
+  white-space: pre-line;
+}
 #button-container{
   display: flex;
 }
