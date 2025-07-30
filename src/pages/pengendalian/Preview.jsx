@@ -132,7 +132,7 @@ backToKKP(self){
                         return(
                             <tr>
                                 <td scope="row">{num+1}</td>
-                                <td>{data.catatan}</td>
+                                <td><p className="catatan-contents">{data.catatan}</p></td>
                                 <td>{data.bidang}</td>
                                 <td>{data.noberkas}</td>
                                 <td>{data.bulan}</td>
