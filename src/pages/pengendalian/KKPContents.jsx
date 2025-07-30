@@ -194,6 +194,17 @@ class KKPContents       extends React.Component{
             document.getElementById('update-content-button').style.display = "block"
             document.getElementById('upload-content-button').style.display = "none"
   }
+  abortContent(){
+    document.getElementById('kkpcontents-form-id').value = ""
+            document.getElementById('kkpcontents-form-catatan').value = ""
+            document.getElementById('kkpcontents-form-bidang').value = ""
+            document.getElementById('kkpcontents-form-noberkas').value = ""
+            document.getElementById('kkpcontents-form-bulan').value = ""
+            document.getElementById('kkpcontents-form-saran').value = ""
+            document.getElementById('kkpcontents-form-keterangan').value = ""
+            document.getElementById('update-content-button').style.display = "none"
+            document.getElementById('upload-content-button').style.display = "block"
+  }
   render(){
     return(
       <div id="kkpcontents-container">
@@ -300,8 +311,12 @@ class KKPContents       extends React.Component{
                 <label htmlFor="kkpcontents-form-keterangan" className="form-label">Keterangan</label>
                 <input type="text" class="form-control" id="kkpcontents-form-keterangan" placeholder="Keterangan"/>
             </div>
-            <button type="button" className="btn btn-primary" id='upload-content-button' onClick={()=>this.uploadKKPContents(this)}>Buat</button>
-            <button type="button" className="btn btn-primary" id='update-content-button' onClick={()=>this.updateContent(this)}>Update</button>
+            <div id="button-container">
+               <button type="button" className="btn btn-primary" id='upload-content-button' onClick={()=>this.uploadKKPContents(this)}>Buat</button>
+              <button type="button" className="btn btn-primary" id='update-content-button' onClick={()=>this.updateContent(this)}>Update</button>
+              <button type="button" className="btn btn-primary" id='abort-content-button' onClick={()=>this.abortContent(this)}>Batal</button>
+            </div>
+           
         </div>
         </div>
         </div>

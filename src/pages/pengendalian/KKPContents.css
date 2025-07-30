@@ -18,6 +18,12 @@
     padding: 10px;
     overflow-x: scroll;
 }
+#button-container{
+  display: flex;
+}
+#button-container .btn{
+  margin-right: 5px;
+}
 #update-content-button{
   display: none;
 }
