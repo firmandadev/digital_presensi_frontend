@@ -31,7 +31,7 @@ class Navbar extends React.Component {
           <b class="nav-link" href="/dasarhukum"><i class="fa-solid fa-user"></i> {localStorage.getItem('username')}</b>
         </li>
         
-        <li class="nav-item button-custom" onClick={()=>logout()}>
+        <li class="nav-item button-custom" onClick={()=>logout()} >
           <b class="nav-link"><i class="fa-solid fa-right-from-bracket"></i> Logout</b>
         </li>
       </ul>

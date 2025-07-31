@@ -21,6 +21,9 @@
 .catatan-contents{
   white-space: pre-line;
 }
+#input-data-id{
+  display: none;
+}
 #button-container{
   display: flex;
 }

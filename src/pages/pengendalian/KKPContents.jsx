@@ -193,6 +193,7 @@ class KKPContents       extends React.Component{
     document.getElementById('kkpcontents-form-keterangan').value = data.keterangan
     document.getElementById('update-content-button').style.display = "block"
     document.getElementById('upload-content-button').style.display = "none"
+    window.location = '#kkpcontents-input-card'
   }
   abortContent(){
     document.getElementById('kkpcontents-form-id').value = ""
@@ -242,7 +243,7 @@ class KKPContents       extends React.Component{
             <tbody>
                 {
                     this.state.contents.map((data,num)=>{
-                      if(localStorage.getItem('username') == data.user){
+                      if(localStorage.getItem('username') == data.user || localStorage.getItem('username')== 'admin'){
                         return(
                             <tr>
                                 <td scope="row">{num+1}</td>
@@ -276,7 +277,7 @@ class KKPContents       extends React.Component{
         </div>
         <div class="card" id='kkpcontents-input-card'>
         <div class="card-body">
-          <div class="mb-3 input-data">
+          <div class="mb-3 input-data" id="input-data-id">
                 <label htmlFor="kkpcontents-form-id" className="form-label">ID</label>
                 <textarea type="text" class="form-control" id="kkpcontents-form-id" placeholder="ID" readOnly/>
             </div>

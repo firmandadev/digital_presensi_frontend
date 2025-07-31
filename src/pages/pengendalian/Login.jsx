@@ -7,11 +7,13 @@ class Login extends React.Component {
     super(props)
 }
 async startLogin(){
+    document.getElementById("loading-gif").style.display = "block";
     let username = document.getElementById('username-form').value
     let password = document.getElementById('pass-form').value
     let statusLogin = await login(username,password)
     console.log(statusLogin)
     if(statusLogin.success == true){
+        document.getElementById("loading-gif").style.display = "none";
         localStorage.setItem('username',username)
         localStorage.setItem('authToken',statusLogin.loginInfo.token)
         window.location = '/pengendalian/kkp'
