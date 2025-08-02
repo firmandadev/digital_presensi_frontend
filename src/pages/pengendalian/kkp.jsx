@@ -1,6 +1,7 @@
 import React from "react"
 import "./kkp.css"
-import { login, logout, isLoggedIn } from '../../modules/utils';
+import Loading from '../../modules/Loading.js'
+import { login, logout, isLoggedIn, changeDateFormat } from '../../modules/utils';
 import Popup from "../../container/Popup"
 const settings = require("../../settings.json")
 
@@ -8,6 +9,7 @@ class Kkp extends React.Component{
   constructor(props){
     super(props)
     isLoggedIn()
+    this.LoadingGif = new Loading()
     this.state={
         upt:[],
         datas:[{
@@ -15,8 +17,8 @@ class Kkp extends React.Component{
             nama_upt : undefined,
             tanggala : undefined,
             tanggalb : undefined,
-            periodea : undefined,
-            periodeb : undefined,
+            periodea : "0000-00-00",
+            periodeb : "0000-00-00",
             linknhp : "",
             linklhp : "",
             linksurat : "",
@@ -31,52 +33,53 @@ class Kkp extends React.Component{
     return(monthYear)
 
   }
-  getRandomID(){
+    getRandomID(){
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     return alphabet[Math.floor(Math.random() * alphabet.length)] + Math.floor(Math.random()*10000)
 }
     async updateKKP(self){
-        document.getElementById("loading-gif").style.display = "block";
-         let datas = {
-            id_kegiatan : document.getElementById('kkp-form-id').value,
-            nama_upt : document.getElementById('kkp-form-upt').value,
-            tanggala : document.getElementById('kkp-form-tanggala').value,
-            tanggalb : document.getElementById('kkp-form-tanggalb').value,
-            periodea : this.changeToMonthYear(document.getElementById('kkp-form-periodea').value),
-            periodeb : this.changeToMonthYear(document.getElementById('kkp-form-periodeb').value),
-            linknhp : document.getElementById('kkp-form-nhp').value,
-            linklhp : document.getElementById('kkp-form-lhp').value,
-            linksurat : document.getElementById('kkp-form-surat').value,
-            linkblangko : document.getElementById('kkp-form-blangko').value,
-        }
-        const response = await fetch(settings.serverURI + "/api/pengendalian/kkp/updateKKP/"+datas.id_kegiatan,{
-        method:"PUT",
-        headers:{'content-type':'application/json'},
-        body: JSON.stringify(datas)
-        })
-        const json  = await response.json()
-        document.getElementById("loading-gif").style.display = "none";
-    }
-  async uploadKKP(self){
-    document.getElementById("loading-gif").style.display = "block";
-    let datas = {
-        id_kegiatan : self.getRandomID().toUpperCase(),
+      this.LoadingGif.showLoading()
+      let datas = {
+        id_kegiatan : document.getElementById('kkp-form-id').value,
         nama_upt : document.getElementById('kkp-form-upt').value,
         tanggala : document.getElementById('kkp-form-tanggala').value,
         tanggalb : document.getElementById('kkp-form-tanggalb').value,
-        periodea : this.changeToMonthYear(document.getElementById('kkp-form-periodea').value),
-        periodeb : this.changeToMonthYear(document.getElementById('kkp-form-periodeb').value),
+        periodea : document.getElementById('kkp-form-periodea').value,
+        periodeb : document.getElementById('kkp-form-periodeb').value,
         linknhp : document.getElementById('kkp-form-nhp').value,
         linklhp : document.getElementById('kkp-form-lhp').value,
         linksurat : document.getElementById('kkp-form-surat').value,
         linkblangko : document.getElementById('kkp-form-blangko').value,
+      }
+      const response = await fetch(settings.serverURI + "/api/pengendalian/kkp/updateKKP/"+datas.id_kegiatan,{
+        method:"PUT",
+        headers:{'content-type':'application/json'},
+        body: JSON.stringify(datas)
+      })
+      const json  = await response.json()
+      this.LoadingGif.hideLoading()
+      this.LoadingGif.showPopUp("Berhasil Update")
+    }
+  async uploadKKP(self){
+    this.LoadingGif.showLoading()
+    let datas = {
+      id_kegiatan : self.getRandomID().toUpperCase(),
+      nama_upt : document.getElementById('kkp-form-upt').value,
+      tanggala : document.getElementById('kkp-form-tanggala').value,
+      tanggalb : document.getElementById('kkp-form-tanggalb').value,
+      periodea : document.getElementById('kkp-form-periodea').value,
+      periodeb : document.getElementById('kkp-form-periodeb').value,
+      linknhp : document.getElementById('kkp-form-nhp').value,
+      linklhp : document.getElementById('kkp-form-lhp').value,
+      linksurat : document.getElementById('kkp-form-surat').value,
+      linkblangko : document.getElementById('kkp-form-blangko').value,
     }
     const response = await fetch(settings.serverURI + "/api/pengendalian/kkp/uploadKKP",{
       method:"POST",
       headers:{'content-type':'application/json'},
       body: JSON.stringify(datas)
     })
-    document.getElementById("loading-gif").style.display = "none";
+    this.LoadingGif.hideLoading()
    
   }
    async getUPTDatas(){
@@ -88,13 +91,14 @@ class Kkp extends React.Component{
         })
   }
   async getKKPDatas(){
-        document.getElementById("loading-gif").style.display = "block";
-        let upt_datas = await fetch(settings.serverURI + "/api/pengendalian/kkp/getKKP");
-        let json = await upt_datas.json()
+    this.LoadingGif.showLoading()
+      let upt_datas = await fetch(settings.serverURI + "/api/pengendalian/kkp/getKKP");
+      let json = await upt_datas.json()
         this.setState({
             datas:json
         })
         document.getElementById("loading-gif").style.display = "none";
+    this.LoadingGif.hideLoading()
   }
   componentDidMount(){
     this.getKKPDatas()
@@ -140,8 +144,8 @@ class Kkp extends React.Component{
                         <tr>
                         <td scope="row">{data.id_kegiatan}</td>
                         <td>{data.nama_upt}</td>
-                        <td>{data.periodea}</td>
-                        <td>{data.periodeb}</td>
+                        <td>{changeDateFormat(data.periodea)}</td>
+                        <td>{changeDateFormat(data.periodeb)}</td>
                         <td><a href={link}>Link</a></td>
                         <td><a href={data.linknhp}>Link</a></td>
                         <td><a href={data.linklhp}>Link</a></td>

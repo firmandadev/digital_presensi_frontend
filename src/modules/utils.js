@@ -85,4 +85,9 @@ export async function isLoggedIn(){
     window.location = '/pengendalian/login'
   }
 }
+export function changeDateFormat(fulldate="0000-00-00"){
+    const parted = fulldate.split("-")
+    if(parted.length !== 3) return "Format Salah, tertulis: " + fulldate
+    return parted[0] + "-" + parted[1]
+  }
 
