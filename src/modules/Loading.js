@@ -1,5 +1,3 @@
-
-
 class Loading{
   constructor(name){
     this.name = name
