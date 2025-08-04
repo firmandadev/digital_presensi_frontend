@@ -9,6 +9,7 @@ import Loading from './container/Loading.jsx'
 import Navbar from './container/Navbar.jsx';
 import Login from './pages/pengendalian/Login.jsx';
 import Presensi from './pages/Presensi';
+import DasarHukum from './pages/dasarhukum/DasarHukum.jsx'
 import Home from './pages/Home';
 import Kkp from './pages/pengendalian/kkp.jsx';
 import KKPContents from './pages/pengendalian/KKPContents.jsx';
@@ -25,14 +26,15 @@ root.render(
     <BrowserRouter>
     <Routes>
       <Route  path="/presensi/*" element={<Presensi />}/>
-       <Route path="/laporan" element={<Laporan />}/>
-       <Route path="/" element={<Home />}/>
-       <Route path="*" element={<Error />}/>
-        <Route path="/presensi/success/*" element={<Success />}/>
-        <Route path="/pengendalian/kkp" element={<Kkp />}/>
-        <Route path="/pengendalian/kkp/*" element={<KKPContents />}/>
-        <Route path="/pengendalian/kkp/prev*" element={<Preview />}/>
-        <Route path="/pengendalian/login" element={<Login />}/>
+      <Route path="/laporan" element={<Laporan />}/>
+      <Route path="/" element={<Home />}/>
+      <Route path="*" element={<Error />}/>
+      <Route path="/dasarhukum" element={<DasarHukum />}/>
+      <Route path="/presensi/success/*" element={<Success />}/>
+      <Route path="/pengendalian/kkp" element={<Kkp />}/>
+      <Route path="/pengendalian/kkp/*" element={<KKPContents />}/>
+      <Route path="/pengendalian/kkp/prev*" element={<Preview />}/>
+      <Route path="/pengendalian/login" element={<Login />}/>
     </Routes>
     </BrowserRouter>
   </React.StrictMode>
