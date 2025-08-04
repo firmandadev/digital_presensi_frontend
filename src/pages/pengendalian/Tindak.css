@@ -1,3 +1,13 @@
-#tindak-container{
-    margin: 10px;
+.key-data{
+    width: 100px;
+    height: 70%;
+}
+
+#upload-content-button{
+    height: 70%;
+    line-height: 10px;
+    font-size: 12px;
+}
+#tindak-content{
+    margin: 0px;
 }

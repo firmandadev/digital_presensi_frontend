@@ -24,7 +24,8 @@ class TindakContent       extends React.Component{
             saran: undefined,
             approved : false
         }],
-        refresh: 1
+        refresh: 1,
+        lewat_batas : false
     }
     
   }
@@ -67,6 +68,8 @@ class TindakContent       extends React.Component{
   componentDidMount(){
     this.getKKPidentity()
     document.getElementById('navbar').style.display = 'none'
+
+    // if(this.setTanggalAkhir(this.state.upt.tanggalb) ==)
   }
   async updateContent(self){
     this.Loader.showLoading()     
@@ -109,6 +112,17 @@ class TindakContent       extends React.Component{
       contents:json.contents
     })
     this.Loader.hideLoading()
+    let date = new Date().toString().split(" ")
+    // console.log(date)
+    let current_date = date[1] + "-" + date[2] + "-" + date[3]
+    let batas_akhir = this.setTanggalAkhir(json.upt.tanggalb)
+    console.log(new Date(current_date))
+    console.log(batas_akhir)
+    if(new Date(current_date) > new Date(batas_akhir)){
+      this.setState({
+        lewat_batas : true
+      })
+    }
   }
   test(){
     document.getElementById("popup-container").style.display = "flex"
@@ -207,11 +221,28 @@ class TindakContent       extends React.Component{
     document.getElementById('linkupload-id-content').innerHTML = id_content
     document.getElementById('keterangan-tj').value = keterangan_tj
     document.getElementById('link-tj').value = link_tj
-    console.log("Mantap")
+   
+  }
+  setTanggalAkhir(ak){
+    const date = new Date(ak);
+    date.setDate(date.getDate()+10);
+    let daysMonthYear = date.toString().split(" ")
+
+    return daysMonthYear[1] + "-" + daysMonthYear[2] + "-" + daysMonthYear[3]
+    // return tenDaysLater
+  }
+  formatDate(date){
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
   }
   render(){
     return(
-      <div id="kkpcontents-container">
+      <div id="tindak-container">
+        <div class="alert alert-dark" role="alert">
+                Dimohon untuk menyelesaikan sebelum tenggat waktu yang ditentukan
+                </div>
             <div class="card" id='kkpcontents-card'>
                 <div class="card">
                 <div class="card-body">
@@ -219,7 +250,7 @@ class TindakContent       extends React.Component{
                         <li class="list-group-item"><b>UPT PPD {this.state.upt.nama_upt}</b></li>
                         <li class="list-group-item">Periode: <i>{this.state.upt.periodea} - {this.state.upt.periodeb}</i></li>
                         <li class="list-group-item">Tanggal Pengendalian: <i>{this.state.upt.tanggala} - {this.state.upt.tanggalb}</i></li>
-                        <li class="list-group-item">Batas Waktu :</li>
+                        <li class="list-group-item">Batas Waktu : {this.setTanggalAkhir(this.state.upt.tanggalb)}</li>
                     </ul>
                 </div>
                 </div>
@@ -250,6 +281,25 @@ class TindakContent       extends React.Component{
                         let approvedClass = 'fa-solid fa-minus'
                         if(data.approved == true){
                           approvedClass ="button-custom fa-solid fa-square-check"
+                        }
+                        console.log(this.state.lewat_batas)
+                        if(this.state.lewat_batas==true){
+                            return(
+                            <tr>
+                                <td scope="row">{num+1}</td>
+                                <td><i class={approvedClass}></i></td>
+                                <td><p className="catatan-contents">{data.catatan}</p></td>
+                                <td>{data.bidang}</td>
+                                <td>{data.noberkas}</td>
+                                <td>{changeDateFormat(data.bulan)}</td>
+                                <td>{data.saran}</td>
+                                <td>{data.keterangan_tj}</td>
+                                <td><a href={data.link_tj} target="_blank">{data.link_tj}</a></td>
+                                <td>Waktu Habis</td>
+                            </tr>
+                        )
+
+
                         }
                         return(
                             <tr>

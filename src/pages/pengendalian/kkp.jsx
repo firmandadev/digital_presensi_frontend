@@ -38,6 +38,7 @@ class Kkp extends React.Component{
     async updateKKP(self){
       this.LoadingGif.showLoading()
       let datas = {
+        key : document.getElementById('kkp-form-key').value,
         id_kegiatan : document.getElementById('kkp-form-id').value,
         nama_upt : document.getElementById('kkp-form-upt').value,
         tanggala : document.getElementById('kkp-form-tanggala').value,
@@ -71,7 +72,9 @@ class Kkp extends React.Component{
       linklhp : document.getElementById('kkp-form-lhp').value,
       linksurat : document.getElementById('kkp-form-surat').value,
       linkblangko : document.getElementById('kkp-form-blangko').value,
+      key : getRandomID(12)
     }
+    console.log(datas)
     const response = await fetch(settings.serverURI + "/api/pengendalian/kkp/uploadKKP",{
       method:"POST",
       headers:{'content-type':'application/json'},
@@ -87,6 +90,7 @@ class Kkp extends React.Component{
             upt : json.upt,
             jabatan : json.jabatan
         })
+        
   }
   async getKKPDatas(){
     this.LoadingGif.showLoading()
@@ -96,12 +100,14 @@ class Kkp extends React.Component{
             datas:json
         })
         document.getElementById("loading-gif").style.display = "none";
+        console.log(json)
     this.LoadingGif.hideLoading()
   }
   componentDidMount(){
     this.getKKPDatas()
   }
   setUpdate(data){
+    document.getElementById('kkp-form-key').value = data.key
     document.getElementById('kkp-form-id').value = data.id_kegiatan
     document.getElementById('kkp-form-upt').value = data.nama_upt
     document.getElementById('kkp-form-tanggala').value = data.tanggala
@@ -162,7 +168,7 @@ class Kkp extends React.Component{
         <div class="card" id='kkp-input-card'>
         <div class="card-body">
                    <div class="mb-3 input-data">
-                <label htmlFor="kkp-form-id" className="form-label">ID</label>
+                  <input readOnly type="text" class="form-control" id="kkp-form-key" placeholder="Tanggal Awal"/>
                 <input readOnly type="text" class="form-control" id="kkp-form-id" placeholder="Tanggal Awal"/>
             </div>
             <div className="mb-3 input-data">

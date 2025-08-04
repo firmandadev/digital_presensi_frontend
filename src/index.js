@@ -40,7 +40,7 @@ root.render(
       <Route path="/upt/" element={<Tindak />}/>
       <Route path="/upt/*" element={<TindakContent />}/>
       <Route path="/pengendalian/kkp/prev*" element={<Preview />}/>
-      <Route path="/pengendalian/login" element={<Login />}/>
+      <Route path="/login" element={<Login />}/>
     </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -53,6 +53,9 @@ class Tindak extends React.Component {
     return(
 	    <div>
             <div class="card" id='tindak-container'>
+                <div class="alert alert-dark" role="alert">
+                Selamat Datang di Kertas Kerja Pemeriksaan Bidang Pengendalian dan Pembinaan Badan Pendapatan Daerah Provinsi Jawa Timur!
+                </div>
                 <div class="card-body">
                     <div class="card" id='tindak-content'>
                         <div class="card-body">
@@ -78,7 +81,7 @@ class Tindak extends React.Component {
                                             <td>{changeDateFormat(data.periodea)} - {changeDateFormat(data.periodeb)}</td>
                                             <td><input type="password" class="form-control key-data" id={key_data_link} placeholder="Password"/></td>
                                             <td>
-                                             <button type="button" className="btn btn-primary" id='upload-content-button'  onClick={()=>this.openLink(data.key, key_data_link, data.id_kegiatan)}>Buat</button>
+                                             <button type="button" className="btn btn-primary" id='upload-content-button'  onClick={()=>this.openLink(data.key, key_data_link, data.id_kegiatan)}>Masuk</button>
                                             </td>
                                             <td>Buka</td>
                                         </tr>)

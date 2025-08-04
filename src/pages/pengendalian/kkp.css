@@ -21,6 +21,9 @@
 #kkp-form-id{
   display:none
 }
+#kkp-form-key{
+    display: none;
+}
 #kkp-input-card{
     grid-area: input;
     display: flex;

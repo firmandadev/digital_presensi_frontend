@@ -76,13 +76,13 @@ export async function login(username,password){
 export async function logout(){
   localStorage.removeItem('authToken')
   localStorage.removeItem('username')
-  window.location = '/pengendalian/login'
+  window.location = '/login'
 }
 export async function isLoggedIn(){
   if(!!localStorage.getItem('username') && !!localStorage.getItem('authToken')){
     return
   }else{
-    window.location = '/pengendalian/login'
+    window.location = '/login'
   }
 }
 export function changeDateFormat(fulldate="0000-00-00"){
@@ -96,7 +96,7 @@ export function changeDateFormat(fulldate="0000-00-00"){
   }
 }
 export function getRandomID(count=5){
-    const alphabetCount = 10 * count
+    const alphabetCount = 1000000
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     return alphabet[Math.floor(Math.random() * alphabet.length)] + Math.floor(Math.random()*alphabetCount)
 }
