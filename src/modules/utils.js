@@ -86,8 +86,18 @@ export async function isLoggedIn(){
   }
 }
 export function changeDateFormat(fulldate="0000-00-00"){
+  try{
   const parted = fulldate.split("-")
   if(parted.length !== 3) return "Format Salah, tertulis: " + fulldate
-  return parted[0] + "-" + parted[1]
+  return parted[0] + "/" + parted[1]}
+  catch(err){
+    console.log(err)
+    return fulldate
+  }
+}
+export function getRandomID(count=5){
+    const alphabetCount = 10 * count
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    return alphabet[Math.floor(Math.random() * alphabet.length)] + Math.floor(Math.random()*alphabetCount)
 }
 

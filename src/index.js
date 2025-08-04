@@ -6,11 +6,14 @@ import Popup from './container/Popup.jsx';
 import Error from './pages/Error';
 import Success from './pages/Success.jsx'
 import Loading from './container/Loading.jsx'
+import LinkUpload from './container/LinkUpload.jsx';
 import Navbar from './container/Navbar.jsx';
 import Login from './pages/pengendalian/Login.jsx';
 import Presensi from './pages/Presensi';
 import DasarHukum from './pages/dasarhukum/DasarHukum.jsx'
+import TindakContent from './pages/pengendalian/TindakContent.jsx';
 import Home from './pages/Home';
+import Tindak from './pages/pengendalian/Tindak.jsx';
 import Kkp from './pages/pengendalian/kkp.jsx';
 import KKPContents from './pages/pengendalian/KKPContents.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -21,6 +24,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Popup />
+    <LinkUpload />
     <Loading />
     <Navbar />
     <BrowserRouter>
@@ -33,6 +37,8 @@ root.render(
       <Route path="/presensi/success/*" element={<Success />}/>
       <Route path="/pengendalian/kkp" element={<Kkp />}/>
       <Route path="/pengendalian/kkp/*" element={<KKPContents />}/>
+      <Route path="/upt/" element={<Tindak />}/>
+      <Route path="/upt/*" element={<TindakContent />}/>
       <Route path="/pengendalian/kkp/prev*" element={<Preview />}/>
       <Route path="/pengendalian/login" element={<Login />}/>
     </Routes>

@@ -1,7 +1,7 @@
 import React from "react"
 import "./kkp.css"
 import Loading from '../../modules/Loading.js'
-import { login, logout, isLoggedIn, changeDateFormat } from '../../modules/utils';
+import { login, logout, isLoggedIn, changeDateFormat, getRandomID } from '../../modules/utils';
 import Popup from "../../container/Popup"
 const settings = require("../../settings.json")
 
@@ -23,6 +23,7 @@ class Kkp extends React.Component{
             linklhp : "",
             linksurat : "",
             linkblangko : "",
+            key : ""
         }]
     }
     this.getUPTDatas()
@@ -33,10 +34,7 @@ class Kkp extends React.Component{
     return(monthYear)
 
   }
-    getRandomID(){
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    return alphabet[Math.floor(Math.random() * alphabet.length)] + Math.floor(Math.random()*10000)
-}
+
     async updateKKP(self){
       this.LoadingGif.showLoading()
       let datas = {
@@ -63,7 +61,7 @@ class Kkp extends React.Component{
   async uploadKKP(self){
     this.LoadingGif.showLoading()
     let datas = {
-      id_kegiatan : self.getRandomID().toUpperCase(),
+      id_kegiatan : getRandomID(),
       nama_upt : document.getElementById('kkp-form-upt').value,
       tanggala : document.getElementById('kkp-form-tanggala').value,
       tanggalb : document.getElementById('kkp-form-tanggalb').value,
@@ -124,6 +122,7 @@ class Kkp extends React.Component{
                 <table class="table">
             <thead>
                 <tr>
+                <th scope="col">Key</th>
                 <th scope="col">ID</th>
                 <th scope="col">Nama UPT</th>
                 <th scope="col">Periode Awal</th>
@@ -142,6 +141,7 @@ class Kkp extends React.Component{
                     let link = `/pengendalian/kkp/${data.id_kegiatan}`
                     return(
                         <tr>
+                          <td>{data.key}</td>
                         <td scope="row">{data.id_kegiatan}</td>
                         <td>{data.nama_upt}</td>
                         <td>{changeDateFormat(data.periodea)}</td>

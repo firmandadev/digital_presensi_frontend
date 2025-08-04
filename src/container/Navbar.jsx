@@ -25,6 +25,9 @@ class Navbar extends React.Component {
           <a class="nav-link" href="/pengendalian/kkp">KKP</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/upt">UPT</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/dasarhukum">Dasar Hukum</a>
         </li>
         <li class="nav-item button-custom">
@@ -34,6 +37,7 @@ class Navbar extends React.Component {
         <li class="nav-item button-custom" onClick={()=>logout()} >
           <b class="nav-link"><i class="fa-solid fa-right-from-bracket"></i> Logout</b>
         </li>
+        
       </ul>
     </div>
   </div>

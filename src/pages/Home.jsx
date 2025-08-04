@@ -3,12 +3,14 @@ import Popup from '../container/Popup.jsx'
 import Loading from "../container/Loading.jsx"
 import SignatureCanvas from 'react-signature-canvas'
 import React, { useRef } from 'react'
+import { login, logout, isLoggedIn, convertMonthToIndonesia, changeDateFormat,getRandomID } from '../modules/utils';
 import Pagination from '../container/Pagination.jsx'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
 const settings = require('../settings.json')
 class Home extends React.Component {
   constructor(props){
     super(props)
+    isLoggedIn()
     this.state ={
         kegiatan : [{
             id_kegiatan : undefined,

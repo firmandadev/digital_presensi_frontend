@@ -1,11 +1,11 @@
 import React from "react"
-import "./KKPContents.css"
+import "./TindakContent.css"
 import Loading from '../../modules/Loading.js'
 import { login, logout, isLoggedIn, convertMonthToIndonesia, changeDateFormat,getRandomID } from '../../modules/utils';
 import Popup from "../../container/Popup"
 const settings = require("../../settings.json")
 
-class KKPContents       extends React.Component{
+class TindakContent       extends React.Component{
   constructor(props){
     super(props)
     isLoggedIn()
@@ -22,15 +22,15 @@ class KKPContents       extends React.Component{
             bulan : undefined,
             noberkas : undefined,
             saran: undefined,
-            link_tj: undefined,
-            keterangan_tj : undefined,
-            approved : undefined
+            approved : false
         }],
         refresh: 1
     }
     
   }
-
+  componentDidMount(){
+    document.getElementById('navbar').style.display = 'none'
+  }
   async uploadKKPContents(self){
      let datas = {
             user : localStorage.getItem('username'),
@@ -203,22 +203,12 @@ class KKPContents       extends React.Component{
     document.getElementById('update-content-button').style.display = "none"
     document.getElementById('upload-content-button').style.display = "block"
   }
-  async approveContent(id_kegiatan,id_content){
-    this.Loader.showLoading() 
-    let datas = {
-      id_content :  id_content,
-      id_kegiatan : id_kegiatan,
-      approved : true
-    }
-    const response = await fetch(settings.serverURI + "/api/pengendalian/kkp/updateContent",{
-      method:"PUT",
-      headers:{'content-type':'application/json'},
-      body: JSON.stringify(datas)
-    })
-    const json  = await response.json()
-    this.Loader.hideLoading()
-    this.Loader.showPopUp(json.message)
-    this.getKKPidentity()
+  uploadLink(id_kegiatan,id_content,link_tj,keterangan_tj){
+    document.getElementById('link-upload-container').style.display = 'block'
+    document.getElementById('linkupload-id-kegiatan').innerHTML = id_kegiatan
+    document.getElementById('linkupload-id-content').innerHTML = id_content
+    document.getElementById('keterangan-tj').value = keterangan_tj
+    document.getElementById('link-tj').value = link_tj
   }
   render(){
     return(
@@ -230,148 +220,62 @@ class KKPContents       extends React.Component{
                         <li class="list-group-item"><b>UPT PPD {this.state.upt.nama_upt}</b></li>
                         <li class="list-group-item">Periode: <i>{this.state.upt.periodea} - {this.state.upt.periodeb}</i></li>
                         <li class="list-group-item">Tanggal Pengendalian: <i>{this.state.upt.tanggala} - {this.state.upt.tanggalb}</i></li>
+                        <li class="list-group-item">Batas Waktu :</li>
                     </ul>
                 </div>
                 </div>
             <div class="card" id='kkpcontents-table'>
                 <div id="table-actions">
-                    <i class="button-custom fa-solid fa-rotate-right" onClick={()=>this.getKKPidentity(this)}></i>
-                    <i class="button-custom fa-solid fa-print" onClick={()=>this.printDoc(this)}></i>
-                    <i class="button-custom fa-solid fa-eye" onClick={()=>this.previewDoc(this)}></i>
+                    <i class="button-custom fa-solid fa-file"></i><p className="penjelasan">Link</p>
+                    <i class="button-custom fa-solid fa-square-check"></i><p className="penjelasan">Disetujui oleh Ketua Tim</p>
+                    <i class="button-custom fa-solid fa-minus"></i><p className="penjelasan">Belum direview</p>
                 </div>
                 <table class="table">
             <thead>
                 <tr>
                 <th scope="col">No</th>
-                <th scope="col">User</th>
+                <th scope="col">Acc</th>
                 <th scope="col">Catatan</th>
                 <th scope="col">Bidang</th>
                 <th scope="col">No Berkas/BKU</th>
                 <th scope="col">Bulan</th>
                 <th scope="col">Saran</th>
                 <th scope="col">Keterangan</th>
-                <th scope="col">Aksi</th>
                 <th scope="col">Link</th>
-                <th scope="col">Acc</th>
+                <th scope="col">Aksi</th>
                 </tr> 
             </thead>
             <tbody>
                 {
                     this.state.contents.map((data,num)=>{
-                      let approved = 'Belum Approved'
-                      if(data.approved == true){
-                        approved = "Approved"
-                      }
-                      console.log(data)
-                      if(localStorage.getItem('username') == data.user || localStorage.getItem('username')== 'admin'){
+                        let approvedClass = 'fa-solid fa-minus'
+                        if(data.approved == true){
+                          approvedClass ="button-custom fa-solid fa-square-check"
+                        }
                         return(
                             <tr>
                                 <td scope="row">{num+1}</td>
-                                <td>{data.user}</td>
+                                <td><i class={approvedClass}></i></td>
                                 <td><p className="catatan-contents">{data.catatan}</p></td>
                                 <td>{data.bidang}</td>
                                 <td>{data.noberkas}</td>
                                 <td>{changeDateFormat(data.bulan)}</td>
                                 <td>{data.saran}</td>
-                                <td>{data.keterangan}</td>
-                                <td><i class="button-custom fa-solid fa-pen" onClick={()=>this.setUpdateContent(data)}></i><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i></td>
-                                <td> <a target="_blank" href={data.link_tj}>{data.link_tj}</a></td>
-          
-                               <td>{approved}
-                               </td>
-                                
+                                <td>{data.keterangan_tj}</td>
+                                <td><a href={data.link_tj} target="_blank">{data.link_tj}</a></td>
+                                <td><i class="button-custom fa-solid fa-cloud-arrow-up" onClick={()=>this.uploadLink(data.id_kegiatan,data.id_content,data.link_tj,data.keterangan_tj)}></i></td>
                             </tr>
-                        )}else if(localStorage.getItem('username')== 'pambudi'){
-                          return(
-                             <tr>
-                                <td scope="row">{num+1}</td>
-                                <td>{data.user}</td>
-                                <td><p className="catatan-contents">{data.catatan}</p></td>
-                                <td>{data.bidang}</td>
-                                <td>{data.noberkas}</td>
-                                <td>{changeDateFormat(data.bulan)}</td>
-                                <td>{data.saran}</td>
-                                <td>{data.keterangan}</td>
-                                <td><i class="button-custom fa-solid fa-pen" onClick={()=>this.setUpdateContent(data)}></i><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i><i class="button-custom fa-solid fa-square-check" onClick={()=>this.approveContent(data.id_kegiatan,data.id_content)}></i></td>
-                                <td> <a target="_blank" href={data.link_tj}>{data.link_tj}</a></td>
-          
-                               <td>{approved}
-                               </td>
-                                
-                            </tr>)
-                        }else{
-                          return(
-                             <tr>
-                                <td scope="row">{num+1}</td>
-                                <td>{data.user}</td>
-                                <td><p className="catatan-contents">{data.catatan}</p></td>
-                                <td>{data.bidang}</td>
-                                <td>{data.noberkas}</td>
-                                <td>{changeDateFormat(data.bulan)}</td>
-                                <td>{data.saran}</td>
-                                <td>{data.keterangan}</td>
-                                <td>Bukan User</td>
-                                <td> <a target="_blank" href={data.link_tj}>{data.link_tj}</a></td>
-                               <td>{approved}
-                               </td>
-                                
-                            </tr>)
-                        }
+                        )
                     })
                 }
             </tbody>
             </table>
         </div>
-        <div class="card" id='kkpcontents-input-card'>
-        <div class="card-body">
-          <div class="mb-3 input-data" id="input-data-id">
-                <label htmlFor="kkpcontents-form-id" className="form-label">ID</label>
-                <textarea type="text" class="form-control" id="kkpcontents-form-id" placeholder="ID" readOnly/>
-            </div>
-            <div className="mb-3 input-data">
-                <label htmlFor="kkp-form-upt" className="form-label">Bidang</label>
-                <select className="custom-select" id='kkpcontents-form-bidang'>
-                    <option value="keuangan">Keuangan</option>
-                    <option value="samsat">Samsat</option>
-                    <option value="perlengkapan">Perlengkapan</option>
-                    <option value="penagihan">Penagihan</option>
-                    <option value="pendataan">Pendataan</option>
-                    <option value="pekerjaan fisik">Pekerjaan Fisik</option>
-                     <option value="kepegawaian">Kepegawaian</option>
-                </select>
-            </div>
-             <div class="mb-3 input-data">
-                <label htmlFor="kkpcontents-form-catatan" className="form-label">Catatan</label>
-                <textarea type="text" class="form-control" id="kkpcontents-form-catatan" placeholder="Catatan"/>
-            </div>
-            <div class="mb-3 input-data">
-                <label htmlFor="kkpcontents-form-noberkas" className="form-label">No Berkas</label>
-                <input type="text" class="form-control" id="kkpcontents-form-noberkas" placeholder="No Berkas"/>
-            </div>
-            <div class="mb-3 input-data">
-                <label htmlFor="kkpcontents-form-bulan" className="form-label">Bulan (Wajib diisi lagi waktu update)</label>
-                <input type="date" class="form-control" id="kkpcontents-form-bulan" placeholder="Bulan"/>
-            </div>
-            <div class="mb-3 input-data">
-                <label htmlFor="kkpcontents-form-saran" className="form-label">Saran</label>
-                <textarea type="text" class="form-control" id="kkpcontents-form-saran" placeholder="Saran"/>
-            </div>
-            <div class="mb-3 input-data">
-                <label htmlFor="kkpcontents-form-keterangan" className="form-label">Keterangan</label>
-                <input type="text" class="form-control" id="kkpcontents-form-keterangan" placeholder="Keterangan"/>
-            </div>
-            <div id="button-container">
-               <button type="button" className="btn btn-primary" id='upload-content-button' onClick={()=>this.uploadKKPContents(this)}>Buat</button>
-              <button type="button" className="btn btn-primary" id='update-content-button' onClick={()=>this.updateContent(this)}>Update</button>
-              <button type="button" className="btn btn-primary" id='abort-content-button' onClick={()=>this.abortContent(this)}>Batal</button>
-            </div>
-           
-        </div>
-        </div>
+        
         </div>
       </div>
     )
   }
 }
 
-export default KKPContents
+export default TindakContent

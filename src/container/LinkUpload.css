@@ -1,0 +1,28 @@
+#link-upload-container{
+  display:none;
+  position:fixed;
+  z-index:3;
+  height:100vh;
+  width:100vw;
+  background-color: rgba(0,0,0,0.5);
+  text-align:center;
+}
+#link-upload-object{
+  position:relative;
+  width: 400px;
+  height:150px;
+  margin:auto;
+  top:50%;
+  transform:translate(0,-150px)
+}
+#link-tj{
+
+}
+#linkupload-id-content{
+    margin-right: 5px;
+    font-weight: 100;
+}
+#linkupload-id-kegiatan{
+    margin-right: 5px;
+    font-weight: 100;
+}

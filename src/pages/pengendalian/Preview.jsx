@@ -1,6 +1,5 @@
 import './Preview.css';
 import React, { useRef } from 'react'
-import { useReactToPrint } from "react-to-print";
 import { convertMonthToIndonesia } from '../../modules/utils';
 const settings = require('../../settings.json')
 

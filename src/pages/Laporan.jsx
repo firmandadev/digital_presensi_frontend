@@ -3,11 +3,13 @@ import './Laporan.css';
 import SignatureCanvas from 'react-signature-canvas'
 import Pagination from "../container/Pagination.jsx"
 import React, { useRef } from 'react'
+import { login, logout, isLoggedIn, convertMonthToIndonesia, changeDateFormat,getRandomID } from '../modules/utils';
 const settings = require('../settings.json')
 
 class Laporan extends React.Component {
   constructor(props){
     super(props)
+    isLoggedIn()
     this.state = {
       datas : [{
         nama : "undefined",
