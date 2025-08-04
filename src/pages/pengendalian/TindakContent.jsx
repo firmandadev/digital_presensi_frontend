@@ -28,9 +28,6 @@ class TindakContent       extends React.Component{
     }
     
   }
-  componentDidMount(){
-    document.getElementById('navbar').style.display = 'none'
-  }
   async uploadKKPContents(self){
      let datas = {
             user : localStorage.getItem('username'),
@@ -69,6 +66,7 @@ class TindakContent       extends React.Component{
     }
   componentDidMount(){
     this.getKKPidentity()
+    document.getElementById('navbar').style.display = 'none'
   }
   async updateContent(self){
     this.Loader.showLoading()     
@@ -203,12 +201,13 @@ class TindakContent       extends React.Component{
     document.getElementById('update-content-button').style.display = "none"
     document.getElementById('upload-content-button').style.display = "block"
   }
-  uploadLink(id_kegiatan,id_content,link_tj,keterangan_tj){
+  async uploadLink(id_kegiatan,id_content,link_tj,keterangan_tj){
     document.getElementById('link-upload-container').style.display = 'block'
     document.getElementById('linkupload-id-kegiatan').innerHTML = id_kegiatan
     document.getElementById('linkupload-id-content').innerHTML = id_content
     document.getElementById('keterangan-tj').value = keterangan_tj
     document.getElementById('link-tj').value = link_tj
+    console.log("Mantap")
   }
   render(){
     return(
@@ -263,7 +262,7 @@ class TindakContent       extends React.Component{
                                 <td>{data.saran}</td>
                                 <td>{data.keterangan_tj}</td>
                                 <td><a href={data.link_tj} target="_blank">{data.link_tj}</a></td>
-                                <td><i class="button-custom fa-solid fa-cloud-arrow-up" onClick={()=>this.uploadLink(data.id_kegiatan,data.id_content,data.link_tj,data.keterangan_tj)}></i></td>
+                                <td><i class="button-custom fa-solid fa-cloud-arrow-up" onClick={()=>this.uploadLink(data.id_kegiatan,data.id_content,data.link_tj,data.keterangan_tj)}></i><i class="button-custom fa-solid fa-rotate-right" onClick={()=>this.getKKPidentity(this)}></i></td>
                             </tr>
                         )
                     })

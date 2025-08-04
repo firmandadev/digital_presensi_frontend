@@ -252,6 +252,7 @@ class KKPContents       extends React.Component{
                 <th scope="col">Keterangan</th>
                 <th scope="col">Aksi</th>
                 <th scope="col">Link</th>
+                <th scope="col">Keterangan</th>
                 <th scope="col">Acc</th>
                 </tr> 
             </thead>
@@ -276,7 +277,7 @@ class KKPContents       extends React.Component{
                                 <td>{data.keterangan}</td>
                                 <td><i class="button-custom fa-solid fa-pen" onClick={()=>this.setUpdateContent(data)}></i><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i></td>
                                 <td> <a target="_blank" href={data.link_tj}>{data.link_tj}</a></td>
-          
+                                <td>{data.keterangan_tj}</td>
                                <td>{approved}
                                </td>
                                 
@@ -294,7 +295,7 @@ class KKPContents       extends React.Component{
                                 <td>{data.keterangan}</td>
                                 <td><i class="button-custom fa-solid fa-pen" onClick={()=>this.setUpdateContent(data)}></i><i class=" button-custom fa-solid fa-trash" onClick={()=>this.deleteContent(data.id_content)}></i><i class="button-custom fa-solid fa-square-check" onClick={()=>this.approveContent(data.id_kegiatan,data.id_content)}></i></td>
                                 <td> <a target="_blank" href={data.link_tj}>{data.link_tj}</a></td>
-          
+                              <td>{data.keterangan_tj}</td>
                                <td>{approved}
                                </td>
                                 
@@ -312,6 +313,7 @@ class KKPContents       extends React.Component{
                                 <td>{data.keterangan}</td>
                                 <td>Bukan User</td>
                                 <td> <a target="_blank" href={data.link_tj}>{data.link_tj}</a></td>
+                                <td>{data.keterangan_tj}</td>
                                <td>{approved}
                                </td>
                                 

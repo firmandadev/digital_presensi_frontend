@@ -53,8 +53,8 @@ class LinkUpload extends React.Component{
                 <label htmlFor="keterangan-tj" className="form-label">Keterangan</label>
                 <input type="text" class="form-control" id="keterangan-tj" placeholder="Keterangan"/>
             </div>
-                  <button type="button" class="btn btn-warning" onClick={()=>this.updateContent()}>Upload</button>
-                  <button type="button" class="btn btn-warning" onClick={()=>this.tutup()}>Tutup</button>
+                  <button type="button" class="btn btn-warning ade" onClick={()=>this.updateContent()}>Upload</button>
+                  <button type="button" class="btn btn-warning ade" onClick={()=>this.tutup()}>Tutup</button>
         </div>
         </div>
       </div>
