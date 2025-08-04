@@ -10,4 +10,5 @@
 }
 #tindak-content{
     margin: 0px;
+    overflow-x:scroll;
 }
