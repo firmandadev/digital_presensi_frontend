@@ -8,7 +8,7 @@ class DasarHukum extends React.Component {
       datas:[{
         category:"Pajak Daerah",
         regulation:[{
-          group:"Pelayanan"
+          group:"Pelayanan",
           order : 1,
           title:"Juknis Pelayanan",
           link:"http://"
