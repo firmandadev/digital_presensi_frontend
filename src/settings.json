@@ -1,6 +1,6 @@
 {
-    "serverURI2" : "https://digital-presensi-backend.vercel.app",
-    "serverURI": "http://localhost:7000",
+    "serverURI" : "https://digital-presensi-backend.vercel.app",
+    "serverURI2": "http://localhost:7000",
     "serverPort":3000,
     "baseURI" :"/digital_presensi_frontend/#",
     "secretKey" : "memes"
