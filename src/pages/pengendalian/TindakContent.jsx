@@ -8,7 +8,6 @@ const settings = require("../../settings.json")
 class TindakContent       extends React.Component{
   constructor(props){
     super(props)
-    isLoggedIn()
     this.Loader = new Loading()
     this.idKegiatan = window.location.href.split('/').slice(-1)[0];
     this.state={
