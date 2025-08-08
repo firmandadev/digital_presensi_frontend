@@ -1,3 +1,36 @@
 #dasarhukum-container{
   background-color:red;
 }
+#dasarhukum-card-container{
+  display: grid;
+  grid-template-areas: "sidebar detail";
+  grid-template-columns: 400px;
+  column-gap: 10px;
+  row-gap: 10px;
+  padding: 10px;
+}
+#dasarhukum-card-sidebar{
+  grid-area: sidebar;
+}
+#dasarhukum-card-detail{
+  grid-area: detail;
+  padding: 10px
+}
+.table-striped{
+  /* border: solid 1px; */
+}
+.dasarhukum-accordion{
+  margin-bottom: 5px;
+}
+.dasarhukum-input{
+  height: 40px;
+}
+.dasarhukum-categories-button{
+  background-color: whitesmoke;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+.dasarhukum-categories-button:hover{
+  cursor: pointer;
+  background-color: burlywood;
+}
