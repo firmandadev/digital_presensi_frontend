@@ -59,12 +59,14 @@ class DasarHukum extends React.Component {
       doc_status : document.getElementById("doc-status").value,
       doc_link : document.getElementById("doc-link").value,
     }
+    this.Loader.showLoading()
     const response = await fetch(settings.serverURI + "/api/dasarhukum/upload",{
       method:"POST",
       headers:{'content-type':'application/json'},
       body: JSON.stringify(documents)
     })
     const datas = await response.json()
+    this.Loader.hideLoading()
     console.log(datas)
   }
   openLegalDetails(self, id){
