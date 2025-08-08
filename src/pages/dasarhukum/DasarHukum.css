@@ -34,3 +34,9 @@
   cursor: pointer;
   background-color: burlywood;
 }
+.view-legal{
+  display: none;
+}
+.dasarhukum-detail-view:hover .view-legal{
+  display: block;
+}

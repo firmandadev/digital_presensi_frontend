@@ -98,7 +98,7 @@ class DasarHukum extends React.Component {
         <div class="card-body" id='dasarhukum-card-legal'>
           {this.state.documents_bycategories.map((document, index) => {
               return (
-                <div key={index} className='dasarhukum-categories-button' onClick={()=>this.openLegalDetails(this, document.doc_id)}>{document.doc_alias}</div>
+                <div key={index} className='dasarhukum-categories-button dasarhukum-detail-view' onClick={()=>this.openLegalDetails(this, document.doc_id)}>{document.doc_alias}<i className='view-legal'>{document.doc_type + " " + document.doc_num}</i></div>
               );
             })}
           </div></div>
