@@ -29,6 +29,9 @@ class DasarHukum extends React.Component {
   }
   componentDidMount(){
     this.getAllDocuments()
+    if(localStorage.getItem('access').includes('Dasarhukum')){
+      document.getElementById('dasarhukum-input-container').style.display = "block"
+    }
   }
   async getAllDocuments(){
     this.Loader.showLoading()
@@ -46,6 +49,9 @@ class DasarHukum extends React.Component {
     self.setState({
       documents_bycategories : categorizedLegal
     })
+  }
+  debugIsGood(content){
+    document.getElementById('debugIsGood').innerHTML = content
   }
   async documentUpload(self){
     let documents = {
@@ -67,23 +73,82 @@ class DasarHukum extends React.Component {
     })
     const datas = await response.json()
     this.Loader.hideLoading()
-    console.log(datas)
+    this.clearDocumentInput()
+  }
+  clearDocumentInput(){
+    let inputComponents = document.getElementsByClassName('dasarhukum-input')
+    inputComponents[0].value = ""
+    inputComponents[1].value = ""
+    inputComponents[2].value = ""
+    inputComponents[3].value = ""
+    inputComponents[4].value = ""
+    inputComponents[5].value = ""
+    inputComponents[6].value = ""
+    inputComponents[7].value = ""
+  }
+  prepareDocumentUpdate(self){
+    let inputComponents = document.getElementsByClassName('dasarhukum-input')
+    let detailsComponents = document.getElementsByClassName('dasarhukum-detail')
+    document.getElementById('dasarhukum-unggah-button').style.display = "none"
+    document.getElementById('dasarhukum-ubah-button').style.display = "block"
+    inputComponents[0].value = detailsComponents[1].innerHTML
+    inputComponents[1].value = detailsComponents[2].innerHTML
+    inputComponents[2].value = detailsComponents[3].innerHTML
+    inputComponents[3].value = detailsComponents[4].innerHTML
+    inputComponents[4].value = detailsComponents[5].innerHTML
+    inputComponents[5].value = detailsComponents[6].innerHTML
+    inputComponents[6].value = detailsComponents[7].innerHTML
+    inputComponents[7].value = detailsComponents[9].innerHTML
+    
+  }
+  async documentUpdate(self){
+    let input_components = document.getElementsByClassName('dasarhukum-input')
+    let detailsComponents = document.getElementsByClassName('dasarhukum-detail')
+    let datas = {
+      doc_id : detailsComponents[0].innerHTML,
+      doc_alias : input_components[0].value,
+      doc_type : input_components[1].value,
+      doc_category : input_components[2].value,
+      doc_num : input_components[3].value,
+      doc_title : input_components[4].value,
+      doc_date : input_components[5].value,
+      doc_status : input_components[6].value,
+      doc_link : input_components[7].value
+    }
+    alert(datas.doc_id)
+    alert(datas.doc_alias)
+    self.Loader.showLoading()
+    const response = await fetch(settings.serverURI + "/api/dasarhukum/update/" + datas.doc_id,{
+      method:"PUT",
+      headers:{'content-type':'application/json'},
+      body: JSON.stringify(datas)
+    })
+    //const result = await response.json()
+    self.Loader.hideLoading()
+    //alert(result.message)
+    self.clearDocumentInput()
+    document.getElementById('dasarhukum-unggah-button').style.display = "block"
+    document.getElementById('dasarhukum-ubah-button').style.display = "none"
+ 
   }
   openLegalDetails(self, id){
     let selectedLegal = self.state.documents_bycategories.filter(document => document.doc_id == id)
     let details = document.getElementsByClassName('dasarhukum-detail')
-    details[0].innerHTML = selectedLegal[0].doc_alias
-    details[1].innerHTML = selectedLegal[0].doc_type
-    details[2].innerHTML = selectedLegal[0].doc_category
-    details[3].innerHTML = selectedLegal[0].doc_num
-    details[4].innerHTML = selectedLegal[0].doc_title
-    details[5].innerHTML = selectedLegal[0].doc_date
-    details[6].innerHTML = selectedLegal[0].doc_status
-    details[7].innerHTML = `<a href='${selectedLegal[0].doc_link}' target="_blank">Link</a>`
+    details[0].innerHTML = selectedLegal[0].doc_id
+    details[1].innerHTML = selectedLegal[0].doc_alias
+    details[2].innerHTML = selectedLegal[0].doc_type
+    details[3].innerHTML = selectedLegal[0].doc_category
+    details[4].innerHTML = selectedLegal[0].doc_num
+    details[5].innerHTML = selectedLegal[0].doc_title
+    details[6].innerHTML = selectedLegal[0].doc_date
+    details[7].innerHTML = selectedLegal[0].doc_status
+    details[8].innerHTML = `<a href='${selectedLegal[0].doc_link}' target="_blank">Link</a>`
+    details[9].innerHTML = selectedLegal[0].doc_link
   }
   render() {
     return (
     <div itemID="dasarhukum-container">
+      <div id='debugIsGood'></div>
      <div class="card" >
         <div class="card-body" id='dasarhukum-card-container'>
             <div class="card" >
@@ -104,7 +169,8 @@ class DasarHukum extends React.Component {
           </div></div>
           <div class="card" >
             <div class="card-body" id='dasarhukum-card-detail'>
-    <table class="table table-striped">
+   <i class="button-custom fa-solid fa-pencil" onClick={()=>this.prepareDocumentUpdate(this)}></i>
+   <table class="table table-striped">
       <thead>
     <tr>
       <th scope="col">Keterangan</th>
@@ -113,6 +179,10 @@ class DasarHukum extends React.Component {
   </thead>
   <tbody>
     <tr>
+      <td>ID Dokumen</td>
+      <td className='dasarhukum-detail'></td>
+    </tr>
+      <tr>
       <td>Alias</td>
       <td className='dasarhukum-detail'></td>
     </tr>
@@ -144,11 +214,15 @@ class DasarHukum extends React.Component {
       <td>Link</td>
       <td className='dasarhukum-detail'><a>Link</a></td>
     </tr>
-    
+    <tr className='hide'>
+      <td>Link</td>
+      <td className='dasarhukum-detail'><a>Link</a></td>
+    </tr>
+
   </tbody>
     </table>
     </div></div>
-    <div class="card" >
+    <div class="card" id="dasarhukum-input-container" >
       <div class="card-body" id='dasarhukum-card-input'>
         <label for="doc-alias" class="form-label">Alias</label>
         <input type="text" class="form-control mb-2 dasarhukum-input" id="doc-alias"></input>
@@ -177,8 +251,9 @@ class DasarHukum extends React.Component {
         </select>
         <label for="doc-link" class="form-label">Link</label>
         <input type="text" class="form-control mb-2 dasarhukum-input" id="doc-link"></input>
-        <button type="button" class="btn btn-dark mt-2" onClick={this.documentUpload}>Unggah Dokumen</button>
-      </div>
+        <button type="button" class="btn btn-dark mt-2" id='dasarhukum-unggah-button' onClick={this.documentUpload}>Unggah Dokumen</button>
+        <button type="button" class="btn btn-dark mt-2" id='dasarhukum-ubah-button' onClick={()=>this.documentUpdate(this)}>Ubah Dokumen</button>
+</div>
       </div>
   </div>
  
