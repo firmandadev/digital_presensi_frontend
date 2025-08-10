@@ -18,7 +18,6 @@ async startLogin(){
         localStorage.setItem('username',username)
         localStorage.setItem('authToken',statusLogin.loginInfo.token)
         localStorage.setItem('access',statusLogin.loginInfo.datas.access)
-        alert(statusLogin.loginInfo.datas.access) 
         window.location = '/pengendalian/kkp'
     }else{
         document.getElementById("login-info").innerHTML = "Username/Password Salah"

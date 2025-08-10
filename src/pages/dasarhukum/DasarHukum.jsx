@@ -44,7 +44,6 @@ class DasarHukum extends React.Component {
     this.Loader.hideLoading()
   }
   openLegalByCategory(self,categories){
-    console.log(self.state.documents, categories)
     let categorizedLegal = self.state.documents.filter(document => document.doc_category == categories)
     self.setState({
       documents_bycategories : categorizedLegal
@@ -115,8 +114,6 @@ class DasarHukum extends React.Component {
       doc_status : input_components[6].value,
       doc_link : input_components[7].value
     }
-    alert(datas.doc_id)
-    alert(datas.doc_alias)
     self.Loader.showLoading()
     const response = await fetch(settings.serverURI + "/api/dasarhukum/update/" + datas.doc_id,{
       method:"PUT",
