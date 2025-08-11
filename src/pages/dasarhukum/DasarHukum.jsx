@@ -72,8 +72,9 @@ class DasarHukum extends React.Component {
     })
     const datas = await response.json()
     self.Loader.hideLoading()
-    self.Loader.showPopUp("Berhasil Upload")
     self.clearDocumentInput()
+    await self.getAllDocuments()
+    self.Loader.showPopUp("Berhasil Upload")
   }
   clearDocumentInput(){
     let inputComponents = document.getElementsByClassName('dasarhukum-input')
@@ -123,10 +124,11 @@ class DasarHukum extends React.Component {
     })
     //const result = await response.json()
     self.Loader.hideLoading()
-    self.Loader.showPopUp('Berhasil Update Data')
     self.clearDocumentInput()
     document.getElementById('dasarhukum-unggah-button').style.display = "block"
     document.getElementById('dasarhukum-ubah-button').style.display = "none"
+    await self.getAllDocuments()
+    self.Loader.showPopUp('Berhasil Update Data')
  
   }
   openLegalDetails(self, id){
@@ -249,7 +251,7 @@ class DasarHukum extends React.Component {
         </select>
         <label for="doc-link" class="form-label">Link</label>
         <input type="text" class="form-control mb-2 dasarhukum-input" id="doc-link"></input>
-        <button type="button" class="btn btn-dark mt-2" id='dasarhukum-unggah-button' onClick={this.documentUpload}>Unggah Dokumen</button>
+        <button type="button" class="btn btn-dark mt-2" id='dasarhukum-unggah-button' onClick={()=>this.documentUpload(this)}>Unggah Dokumen</button>
         <button type="button" class="btn btn-dark mt-2" id='dasarhukum-ubah-button' onClick={()=>this.documentUpdate(this)}>Ubah Dokumen</button>
         <button type="button" class="btn btn-dark mt-2 ml-2" onClick={()=>this.clearDocumentInput(this)}>Hapus Masukan</button>
 </div>
