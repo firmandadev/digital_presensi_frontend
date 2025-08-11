@@ -27,11 +27,16 @@
 .dasarhukum-input{
   height: 40px;
 }
+.fa-file{
+  margin-right: 10px;
+}
 .hide{
   display:none
 }
 #dasarhukum-ubah-button{
   display:none
+}.fa-folder{
+  margin-right: 10px;
 }
 #dasarhukum-input-container{
   display:none
@@ -50,6 +55,12 @@
 }
 .dasarhukum-detail-view:hover .view-legal{
   display: block;
+}
+#button-hapus-masukan{
+  margin-left: 10px;
+}
+.dasarhukum-icon{
+  margin-right: 10px;
 }
 @media (max-width: 600px) {
   #dasarhukum-card-container{

@@ -60,7 +60,7 @@ class DasarHukum extends React.Component {
       doc_category : document.getElementById("doc-category").value,
       doc_num : document.getElementById("doc-num").value,
       doc_title : document.getElementById("doc-title").value,
-      doc_date : document.getElementById("doc-date").value,
+      doc_date : new Date(document.getElementById("doc-date").value),
       doc_status : document.getElementById("doc-status").value,
       doc_link : document.getElementById("doc-link").value,
     }
@@ -97,8 +97,8 @@ class DasarHukum extends React.Component {
     inputComponents[2].value = detailsComponents[3].innerHTML
     inputComponents[3].value = detailsComponents[4].innerHTML
     inputComponents[4].value = detailsComponents[5].innerHTML
-    inputComponents[5].value = detailsComponents[6].innerHTML
-    inputComponents[6].value = detailsComponents[7].innerHTML
+    inputComponents[5].value = detailsComponents[6].innerHTML.split("T")[0]
+    inputComponents[6].value = detailsComponents[7].innerHTML == "Berlaku" ? true : false
     inputComponents[7].value = detailsComponents[9].innerHTML
     
   }
@@ -141,8 +141,8 @@ class DasarHukum extends React.Component {
     details[4].innerHTML = selectedLegal[0].doc_num
     details[5].innerHTML = selectedLegal[0].doc_title
     details[6].innerHTML = selectedLegal[0].doc_date
-    details[7].innerHTML = selectedLegal[0].doc_status
-    details[8].innerHTML = `<a href='${selectedLegal[0].doc_link}' target="_blank">Link</a>`
+    details[7].innerHTML = selectedLegal[0].doc_status ? "Berlaku" : "Tidak Berlaku"
+    details[8].innerHTML = `<a href='${selectedLegal[0].doc_link}' target="_blank">Lihat</a>`
     details[9].innerHTML = selectedLegal[0].doc_link
   }
   render() {
@@ -155,7 +155,7 @@ class DasarHukum extends React.Component {
                 <div class="card-body" id='dasarhukum-card-sidebar'>
           {this.state.categories.map((data, index) => {
             return (
-              <div key={index} className='dasarhukum-categories-button' onClick={()=>this.openLegalByCategory(this,data)}>{data}</div>
+              <div key={index} className='dasarhukum-categories-button' onClick={()=>this.openLegalByCategory(this,data)}><i class="fa-solid fa-folder"></i>{data}</div>
             );
           })}
           </div></div>
@@ -163,7 +163,7 @@ class DasarHukum extends React.Component {
         <div class="card-body" id='dasarhukum-card-legal'>
           {this.state.documents_bycategories.map((document, index) => {
               return (
-                <div key={index} className='dasarhukum-categories-button dasarhukum-detail-view' onClick={()=>this.openLegalDetails(this, document.doc_id)}>{document.doc_alias}<i className='view-legal'>{document.doc_type + " " + document.doc_num}</i></div>
+                <div key={index} className='dasarhukum-categories-button dasarhukum-detail-view' onClick={()=>this.openLegalDetails(this, document.doc_id)}><i class="fa-solid fa-file"></i>{document.doc_date.split("-")[0] +"/"+document.doc_date.split("-")[1] +" - "+document.doc_alias}<i className='view-legal'>{ document.doc_type + " " + document.doc_num}</i></div>
               );
             })}
           </div></div>
@@ -212,7 +212,7 @@ class DasarHukum extends React.Component {
     </tr>
     <tr>
       <td>Link</td>
-      <td className='dasarhukum-detail'><a>Link</a></td>
+      <td className='dasarhukum-detail'><a>Lihat</a></td>
     </tr>
     <tr className='hide'>
       <td>Link</td>
@@ -251,9 +251,9 @@ class DasarHukum extends React.Component {
         </select>
         <label for="doc-link" class="form-label">Link</label>
         <input type="text" class="form-control mb-2 dasarhukum-input" id="doc-link"></input>
-        <button type="button" class="btn btn-dark mt-2" id='dasarhukum-unggah-button' onClick={()=>this.documentUpload(this)}>Unggah Dokumen</button>
-        <button type="button" class="btn btn-dark mt-2" id='dasarhukum-ubah-button' onClick={()=>this.documentUpdate(this)}>Ubah Dokumen</button>
-        <button type="button" class="btn btn-dark mt-2 ml-2" onClick={()=>this.clearDocumentInput(this)}>Hapus Masukan</button>
+        <button type="button" class="btn btn-dark mt-2" id='dasarhukum-unggah-button' onClick={()=>this.documentUpload(this)}><i class="fa-solid fa-arrow-up-from-bracket dasarhukum-icon"></i>Unggah</button>
+        <button type="button" class="btn btn-dark mt-2" id='dasarhukum-ubah-button' onClick={()=>this.documentUpdate(this)}><i class="fa-solid fa-arrow-up-from-bracket dasarhukum-icon"></i>Ubah</button>
+        <button type="button" class="btn btn-dark mt-2" id='button-hapus-masukan' onClick={()=>this.clearDocumentInput(this)}><i class="fa-solid fa-eraser dasarhukum-icon"></i>Bersihkan</button>
 </div>
       </div>
   </div>
