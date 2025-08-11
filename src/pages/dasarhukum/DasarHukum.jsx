@@ -251,7 +251,7 @@ class DasarHukum extends React.Component {
         <input type="text" class="form-control mb-2 dasarhukum-input" id="doc-link"></input>
         <button type="button" class="btn btn-dark mt-2" id='dasarhukum-unggah-button' onClick={this.documentUpload}>Unggah Dokumen</button>
         <button type="button" class="btn btn-dark mt-2" id='dasarhukum-ubah-button' onClick={()=>this.documentUpdate(this)}>Ubah Dokumen</button>
-        <button type="button" class="btn btn-dark mt-2" onClick={()=>this.clearDocumentInput(this)}>Hapus Masukan</button>
+        <button type="button" class="btn btn-dark mt-2 ml-2" onClick={()=>this.clearDocumentInput(this)}>Hapus Masukan</button>
 </div>
       </div>
   </div>
