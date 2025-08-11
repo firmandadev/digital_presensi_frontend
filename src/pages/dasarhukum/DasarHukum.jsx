@@ -72,6 +72,7 @@ class DasarHukum extends React.Component {
     })
     const datas = await response.json()
     this.Loader.hideLoading()
+    this.Loader.showPopUp("Berhasil Upload")
     this.clearDocumentInput()
   }
   clearDocumentInput(){
@@ -122,7 +123,7 @@ class DasarHukum extends React.Component {
     })
     //const result = await response.json()
     self.Loader.hideLoading()
-    //alert(result.message)
+    self.Loader.showPopUp('Berhasil Update Data')
     self.clearDocumentInput()
     document.getElementById('dasarhukum-unggah-button').style.display = "block"
     document.getElementById('dasarhukum-ubah-button').style.display = "none"
